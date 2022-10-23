@@ -1,0 +1,153 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+    <head>
+        <title>{% block titulo %} {%endblock %}</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <div class="nav navbar-nav">
+                <a class="nav-item nav-link active" href="#" onclick="validarSuma('{% url 'inicio' %}')" > Inicio </a>
+
+                <a class="nav-item nav-link active" href="#">Informes</a>
+            </div>
+
+            <div class="navbar-nav ml-auto">
+                <a onclick="salir()" class=" nav-item nav-link active" href="#">Salir</a>
+            </div>
+        </nav>
+
+        <div class="container-fluid" style="max-width: 85rem;">
+            <br/>
+            {% block contenido %} {%endblock %}
+            <br>
+        </div>
+
+        {% if messages %}
+            {% for mensaje in messages %}
+                <script>
+                    Swal.fire({
+                        "title": "Aviso",
+                        "text": "{{mensaje}}",
+                        "icon": "{{mensaje.tags}}"
+                    })
+                </script>
+            {% endfor %}
+        {% endif %}
+
+        <script>
+            function salir() {
+                Swal.fire({
+                    "title": "Estas seguro de cerrar la sesion?",
+                    "icon": "question",
+                    "showCancelButton": true,
+                    "cancelButtonText": "No, Cancelar",
+                    "confirmButtonText": "Si, Salir",
+                    "confirmButtonColor": "#dc3545"
+                })
+                .then(function(result) {
+                    if(result.isConfirmed) {
+                        window.location.href = "{% url 'logout' %}"
+                    }
+                })
+            }
+        </script>
+
+        <script>
+            var debe = document.getElementById("suma_debe")
+            var haber = document.getElementById("suma_haber")
+
+            if ( debe && haber) {
+                var suma = document.getElementById("suma");
+                var suma_debe = debe.textContent;
+                var suma_haber = haber.textContent;
+
+                if (suma_debe == suma_haber) {
+                    suma.className += " table-success";
+                } else {
+                    suma.className += " table-danger";
+                }
+
+                function validarSuma(url) {
+                    if (suma_debe == suma_haber) {
+                        window.location.href = url
+                    } else {
+                        Swal.fire({
+                            "title": "Aviso",
+                            "text": "El monto del Debe y el Haber debe ser igual",
+                            "icon": "error"
+                        })
+                    }
+                }
+
+                if (suma_debe == suma_haber) {
+                    function salir() {
+                        Swal.fire({
+                            "title": "Estas seguro de cerrar la sesion?",
+                            "icon": "question",
+                            "showCancelButton": true,
+                            "cancelButtonText": "No, Cancelar",
+                            "confirmButtonText": "Si, Salir",
+                            "confirmButtonColor": "#dc3545"
+                        })
+                        .then(function(result) {
+                            if(result.isConfirmed) {
+                                window.location.href = "{% url 'logout' %}"
+                            }
+                        })
+                    }
+                } else {
+                    function salir() {
+                        Swal.fire({
+                            "title": "Aviso",
+                            "text": "El monto del Debe y el Haber debe ser igual",
+                            "icon": "error"
+                        })
+                    }
+                }
+
+            } else {
+                function validarSuma(url) {
+                    window.location.href = url
+                }
+
+                function salir() {
+                        Swal.fire({
+                            "title": "Estas seguro de cerrar la sesion?",
+                            "icon": "question",
+                            "showCancelButton": true,
+                            "cancelButtonText": "No, Cancelar",
+                            "confirmButtonText": "Si, Salir",
+                            "confirmButtonColor": "#dc3545"
+                        })
+                        .then(function(result) {
+                            if(result.isConfirmed) {
+                                window.location.href = "{% url 'logout' %}"
+                            }
+                        })
+                    }
+            }
+        </script>
+
+        {% block js %}
+        {% endblock %}
+    </body>
+</html>

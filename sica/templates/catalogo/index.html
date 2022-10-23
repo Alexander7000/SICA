@@ -1,0 +1,58 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Lista de informes {%endblock %}
+
+{% block contenido %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Cuentas</h4>
+
+            <table class="table table-hover ">
+                <thead class="thead-light">
+                    <tr>
+                        <th>N° de cuenta</th>
+                        <th>Nombre de cuenta</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for clase in clases %}
+                        <tr style="text-transform:uppercase;font-weight:900;">
+                            <td> {{clase.id_clase}}</td>
+                            <td> {{clase.nombre_clase}}</td>
+                        </tr>
+                        {% for grupo in grupos %}
+                            {% if grupo.id_clase.id_clase == clase.id_clase %}
+                                <tr style="text-transform:uppercase;font-weight:600;">
+                                    <td>{{grupo.id_grupo}}</td>
+                                    <td>&nbsp;&nbsp;&nbsp;{{grupo.nombre_grupo}}</td>
+                                </tr>
+                                {% for cuenta in cuentas %}
+                                    {% if cuenta.id_grupo.id_grupo == grupo.id_grupo %}
+                                        <tr style="text-transform:uppercase;">
+                                            <td>{{cuenta.id_cuenta}}</td>
+                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{cuenta.nombre_cuenta}}</td>
+                                        </tr>
+                                        {% for subCuenta in subCuentas %}
+                                            {% if subCuenta.id_cuenta.id_cuenta == cuenta.id_cuenta %}
+                                                <tr>
+                                                    <td>{{subCuenta.id_subCuenta}}</td>
+                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{subCuenta.nombre_subCuenta}}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn btn-primary" href="{% url 'inicio' %}" role="button">Regresar</a>
+        </div>
+    </div>
+</div>
+<br>
+{%endblock %}

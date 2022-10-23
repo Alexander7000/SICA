@@ -1,0 +1,67 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Lista de Transacciones {%endblock %}
+
+{% block js %}
+    <script>
+        function eliminarPartida(id_partida) {
+            Swal.fire({
+                "title": "Estas seguro?",
+                "text": "Esta accion no se puede deshacer",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Si, Eliminar",
+                "confirmButtonColor": "#dc3545"
+            })
+            .then(function(result) {
+                if(result.isConfirmed) {
+                    window.location.href = "{% url 'partidas' %}/eliminar/"+id_partida
+                }
+            })
+        }
+    </script>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+    <div class="card">
+         <div class="card-header">
+        <a class="btn btn-success" href="{% url 'crear_partida' %}" role="button">Agregar nueva partida</a>
+    </div>
+        <div class="card-body">
+            <h4 class="card-title">Cuentas</h4>
+
+            <table class="table table-hover ">
+                <thead class="thead-light">
+                    <tr>
+                        <th>N° de Partida</th>
+                        <th>Descripcion</th>
+                        <th>Transacciones</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for partida in partidas %}
+                        <tr>
+                            <td> {{partida.id_partida}}</td>
+                            <td>{{partida.descripcion_partida}}</td>
+                            <td>
+                                <a class="btn btn-info" href="{% url 'transacciones' partida.id_partida %}" role="button">Ver transacciones</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-info" href="{% url 'editar_partida' partida.id_partida %}" role="button">Editar</a>
+                                |
+                                <a href="#" onclick="eliminarPartida({{ partida.id_partida }})" class="btn btn-danger" role="button">Borrar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a name="" class="btn btn-primary" href="{% url 'inicio' %}" role="button">Regresar</a>
+        </div>
+    </div>
+</div>
+{%endblock %}

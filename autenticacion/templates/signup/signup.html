@@ -1,0 +1,33 @@
+{% extends "bases/baseLogin.html" %}
+
+{% block titulo %} Registro usuario {%endblock %}
+
+{% block contenido %}
+
+{% load crispy_forms_tags %}
+
+<div class="row align-items-center justify-content-center">
+    <div class="col-md-5.5 ">
+        <div class="card">
+            <div class="card-header">
+                Registro de usuario
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Ingrese sus datos</h4>
+
+                <form enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ formulario|crispy }}
+                    </div>
+
+                    <input name="" class="btn btn-success" type="submit" value="Registrarse">
+
+                    <a name="" class="btn btn-primary" href="{% url 'login' %}" role="button">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

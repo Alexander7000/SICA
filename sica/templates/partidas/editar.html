@@ -1,0 +1,28 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Editar partida {%endblock %}
+
+{% block contenido %}
+<div class="row align-items-center justify-content-center">
+    <div class="col-md-4 ">
+        <div class="card">
+            <div class="card-header">
+                Editar informacion de la partida
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Datos de la partida</h4>
+
+                {% load crispy_forms_tags %}
+                <form enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3"> {{ formulario|crispy }} </div>
+
+                    <input name="" class="btn btn-success" type="submit" value="Guardar">
+
+                    <a name="" class="btn btn-primary" href="{% url 'partidas' %}" role="button">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock %}

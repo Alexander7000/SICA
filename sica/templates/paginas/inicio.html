@@ -1,0 +1,84 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Inicio {%endblock %}
+
+{% block contenido %}
+
+<div class="jumbotron">
+    <h1 class="display-4">Bienvenid@ "{{user.username}}"</h1>
+    <hr class="my-2">
+    <br>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="card text-white bg-dark text-center" style="max-width: 18rem;">
+                <div class="card-header">
+                    <h5 class="card-title">Catalogo de cuentas</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Listado ordenado de las cuentas contables en
+                        las que se registran las operaciones
+                    </p>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-light btn-lg" href="{% url 'catalogo' %}" role="button">Empezar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div class="card text-dark bg-white  text-center" style="max-width: 18rem;">
+                <div class="card-header">
+                    <h5 class="card-title">Registro cuenta T</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Este apartado nos permite registrar los movimientos en la empresa
+                    </p>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-dark btn-lg" href="{% url 'partidas' %}" role="button">Empezar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div class="card text-white bg-dark text-center" style="max-width: 18rem;">
+                <div class="card-header">
+                    <h5 class="card-title">Hoja de trabajo</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Herramienta que facilita al usuario la elaboración de los estados financieros
+                    </p>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-light btn-lg" href="HojadeTrabajo" role="button">Empezar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div class="card text-dark bg-white text-center" style="max-width: 18rem;">
+                <div class="card-header">
+                    <h5 class="card-title">Contabilidad de costos</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Tiene como propósito controlar e informar de los costos para el uso interno de los directivos
+                    </p>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-dark btn-lg" href="#" role="button">Empezar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock %}

@@ -1,0 +1,92 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Lista de Transacciones {%endblock %}
+
+{% block js %}
+    <script>
+        function eliminarTransaccion(id_partida, id_transaccion) {
+            Swal.fire({
+                "title": "Estas seguro?",
+                "text": "Esta accion no se puede deshacer",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Si, Eliminar",
+                "confirmButtonColor": "#dc3545"
+            })
+            .then(function(result) {
+                if(result.isConfirmed) {
+                    window.location.href = "eliminar/"+id_transaccion
+                }
+            })
+        }
+    </script>
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="card">
+         <div class="card-header">
+            <div class="d-flex justify-content-between align-items-cente">
+             <a name="" id="" class="btn btn-success" href="{% url 'crear_transaccion' id_partida %}" role="button">Agregar nueva Transaccion</a>
+
+             <a class="btn btn-primary" href="{% url 'transaccion_IVA' id_partida %}" role="button">Calcular IVA</a>
+                </div>
+    </div>
+        <div class="card-body">
+            <h4 class="card-title">Transacciones</h4>
+
+            <table class="table table-hover ">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Fecha de Transacción</th>
+                        <th>N° de cuenta</th>
+                        <th>Nombre de cuenta</th>
+                        <th>Descripción de la transacción</th>
+                        <th>Debe</th>
+                        <th>Haber</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for transaccion in transacciones %}
+                        <tr>
+                            <td> {{transaccion.fecha_transaccionT}}</td>
+
+                            <td>{{transaccion.id_subCuenta.id_subCuenta}}</td>
+                            <td> {{transaccion.id_subCuenta.nombre_subCuenta}}</td>
+                            <td> {{transaccion.descripcion_transaccionT}}</td>
+
+                            <td>  {% if transaccion.id_tipoTransaccion.id_tipoTransaccion == 1 %}
+                                    ${{transaccion.monto}}
+                                   {% endif %}
+                            </td>
+                            <td> {% if transaccion.id_tipoTransaccion.id_tipoTransaccion == 2 %}
+                                    ${{transaccion.monto}}
+                                   {% endif %}
+                            </td>
+                            <td>
+                                <a class="btn btn-info" href="{% url 'editar_transaccion' id_partida transaccion.id_transaccion %}" role="button">Editar</a>
+                                |
+                                <a href="#" onclick="eliminarTransaccion({{ id_partida }}, {{ transaccion.id_transaccion }})" class="btn btn-danger" role="button">Borrar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr id="suma" class="">
+                        <td> Diferencia:  ${{diferencia}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td id="suma_debe" > ${{suma_debe}} </td>
+                        <td id="suma_haber"> ${{suma_haber}} </td>
+                        <td></td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <a class="btn btn-primary" href="#" onclick="validarSuma('{% url 'partidas' %}')" role="button">Regresar</a>
+        </div>
+    </div>
+</div>
+{%endblock %}

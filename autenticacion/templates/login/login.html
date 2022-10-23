@@ -1,0 +1,39 @@
+{% extends "bases/baseLogin.html" %}
+
+{% block titulo %} Login {%endblock %}
+
+{% block contenido %}
+
+{% load crispy_forms_tags %}
+
+<div class="jumbotron text-center">
+	<h1 class="display-3">SICA</h1>
+	<hr class="my-2">
+	<br>
+
+	<div class="container-fluid">
+		<div class="row align-items-center justify-content-center">
+			<div class="col-5 col-md-5 ">
+				<div class="card text-white bg-dark mb-2 text-center" style="max-width: 30rem;">
+					<div class="card-header">
+						<h5 class="card-title">Iniciar Sesión </h5>
+					</div>
+					<div class="card-body">
+						<form method="post">
+							{% csrf_token %}
+							<div class="mb-3" >
+								<style>.asteriskField { display: none; }</style>
+								{{ formulario|crispy }}
+							</div>
+							<br>
+							<input class="btn btn-primary" type="submit" value="Ingresar">
+							<br><br> ¿Aun no tienes una cuenta?
+							<a name="" id="" class="link" href="{% url 'signup'%}" role="link">Registrate aqui</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
