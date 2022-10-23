@@ -14,6 +14,8 @@ from pathlib import Path
 
 from django.conf.global_settings import THOUSAND_SEPARATOR, NUMBER_GROUPING
 
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,10 +32,13 @@ DEBUG = True
 LOGIN_URL = 'login'
 USE_DJANGO_JQUERY = True
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-STATIC_URL = 'static/'
 USE_THOUSAND_SEPARATOR = True
 
-ALLOWED_HOSTS = ['192.168.1.4','127.0.0.1']
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+ALLOWED_HOSTS = ['192.168.1.4','127.0.0.1','alexander7000.pythonanywhere.com']
 
 
 # Application definition
@@ -87,12 +92,12 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sic_db',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'alexander7000$sic_db',
+        'USER': 'alexander7000',
+        'PASSWORD': 'sica1234',
+        'HOST': 'alexander7000.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
     }
 }
 
