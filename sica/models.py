@@ -144,8 +144,8 @@ class OrdendeProduccion(models.Model):
 class ManodeObra(models.Model):
     id_manodeObra=models.AutoField(primary_key=True, null=False, blank=False)
     id_OrdendeProduccion = models.ForeignKey(OrdendeProduccion,verbose_name="N° Orden", on_delete=models.PROTECT,null=False, blank=False)
-    fecha_manodeObra = models.DateField("Fecha", null=False, blank=False,help_text="Consejo: <em>Presione en el calendario</em>.", )
-    horas_manodeObra = models.IntegerField("Horas", null=False, blank=False)
+    fecha_manodeObra = models.DateField("Fecha", null=False, blank=False,help_text="Consejo: <em>Presione en el calendario</em>." )
+    horas_manodeObra = models.IntegerField("Horas", null=False, blank=False,validators=[MinValueValidator(0)])
     salario_manodeObra = models.FloatField("Salario por Hora", validators=[MinValueValidator(0)],null=False, blank=False)
     costo = models.DecimalField(null=False, blank=False, max_digits=10,decimal_places=2)
     class Meta:

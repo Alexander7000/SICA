@@ -28,5 +28,5 @@ urlpatterns = [
     path('ContabilidadCostos', ContabilidadCostos, name='ContabilidadCostos'),
     path('ContabilidadCostos/OrdenProduccion.html', OrdenProduccion, name='OrdenProduccion'),
     path('ContabilidadCostos/verOrdenes.html', verOrdenes, name='verOrdenes'),
-    path('ContabilidadCostos/ManodeObra.html', ManodeObra, name='ManodeObra'),
+    path('ContabilidadCostos/ManodeObra.html/<int:id_OrdendeProduccion>', ManodeObra, name='ManodeObra'),
 ]

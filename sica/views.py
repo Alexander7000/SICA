@@ -242,22 +242,10 @@ def OrdenProduccion(request):
 
         produccion.save()
 
-        return redirect('ManodeObra')
+        return redirect('ManodeObra',produccion.id_OrdendeProduccion)
 
     return render(request, 'ContabilidadCostos/OrdenProduccion.html', {'formulario': formulario})
 
-@login_required
-def ManodeObra(request):
-    formulario = ManodeObraForm(request.POST or None)
-
-    if formulario.is_valid():
-        manodeObra = formulario.save(commit=False)
-
-        manodeObra.save()
-
-        return redirect('ManodeObra')
-
-    return render(request, 'ContabilidadCostos/OrdenProduccion.html', {'formulario': formulario})
 
 @login_required
 def verOrdenes(request):
@@ -265,14 +253,16 @@ def verOrdenes(request):
     return render(request, 'ContabilidadCostos/verOrdenes.html', {'ordenes': ordenes})
 
 @login_required
-def ManodeObra(request):
+def ManodeObra(request,id_OrdendeProduccion):
     formulario = ManodeObraForm(request.POST or None)
 
+    orden = OrdendeProduccion.objects.filter(id_OrdendeProduccion=id_OrdendeProduccion)
     if formulario.is_valid():
-        manoObra = formulario.save(commit=False)
 
+        manoObra = formulario.save(commit=False)
+        manoObra.id_OrdendeProduccion=orden
         manoObra.save()
 
-        return redirect('inicio')
+        return redirect('ManodeObra')
 
     return render(request, 'ContabilidadCostos/ManodeObra.html', {'formulario': formulario})
