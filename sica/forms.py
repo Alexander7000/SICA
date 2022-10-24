@@ -53,7 +53,7 @@ class ManodeObraForm(forms.ModelForm):
     class Meta:
         model = ManodeObra
         fields = '__all__'
-        exclude = ['id_ManodeObra']
+        exclude = ['id_OrdendeProduccion']
         widgets = {
             'fecha_manodeObra': DateInput(attrs={'class': 'form-control'}),
         }
