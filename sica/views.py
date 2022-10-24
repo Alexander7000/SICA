@@ -1,6 +1,4 @@
 from decimal import Decimal
-
-
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -204,27 +202,108 @@ def calculo_IVA(request, id_partida, id_transaccion):
 
 
 @login_required
-def HojadeTrabajo(request):
+def hojaTrabajo(request):
 
-    return render(request, 'HojadeTrabajo/index.html')
+    return render(request, 'hojaTrabajo/index.html')
+
+
 @login_required
-def BalanceGeneral(request):
+def balanceComprobacion(request):
+    subCuentas = SubCuenta.objects.all()
     transacciones = Transaccion.objects.all()
+
+    for subCuenta in subCuentas:
+        debe = 0
+        haber = 0
+        subCuenta.debe = subCuenta.haber = 0
+
+        for transaccion in transacciones:
+            if transaccion.id_subCuenta.id_subCuenta == subCuenta.id_subCuenta:
+
+                if transaccion.id_tipoTransaccion.id_tipoTransaccion == 1:
+                    debe += transaccion.monto
+
+                if transaccion.id_tipoTransaccion.id_tipoTransaccion == 2:
+                    haber += transaccion.monto
+
+        if debe > haber:
+            subCuenta.debe = debe - haber
+        else:
+            subCuenta.haber = haber - debe
+
+        subCuenta.save()
+
+    subCuentasSaldadas = SubCuenta.objects.filter(Q(debe__gt=0.00) | Q(haber__gt=0.00))
 
     suma_debe = 0
     suma_haber = 0
 
-    for transaccion in transacciones:
-        if transaccion.id_tipoTransaccion.id_tipoTransaccion == 1:
-            suma_debe += transaccion.monto
+    for subCuentaSaldada in subCuentasSaldadas:
+        suma_debe += subCuentaSaldada.debe
+        suma_haber += subCuentaSaldada.haber
 
-        if transaccion.id_tipoTransaccion.id_tipoTransaccion == 2:
-            suma_haber += transaccion.monto
+    diferencia = abs(suma_debe - suma_haber)
+
+    return render(request, 'hojaTrabajo/balanceComprobacion.html', {'subCuentasSaldadas': subCuentasSaldadas,
+                                                                 'suma_debe': suma_debe,
+                                                                 'suma_haber': suma_haber,
+                                                                 'diferencia': diferencia})
+
+@login_required
+def ajustes(request):
+    ajustes = Ajuste.objects.all()
+
+    suma_debe = 0
+    suma_haber = 0
+
+    for ajuste in ajustes:
+        if ajuste.id_tipoTransaccion.id_tipoTransaccion == 1:
+            suma_debe += ajuste.monto
+
+        if ajuste.id_tipoTransaccion.id_tipoTransaccion == 2:
+            suma_haber += ajuste.monto
 
     diferencia = abs(suma_debe-suma_haber)
 
-    return render(request, 'HojadeTrabajo/BalanceGeneral.html', {'transacciones': transacciones,
+    return render(request, 'hojaTrabajo/ajustes/index.html', {'ajustes': ajustes,
+                                                      'suma_debe': suma_debe,
+                                                      'suma_haber': suma_haber,
+                                                      'diferencia': diferencia})
 
-                                                        'suma_debe': suma_debe,
-                                                        'suma_haber': suma_haber,
-                                                        'diferencia': diferencia})
+
+@login_required
+def crear_ajuste(request):
+    formulario = AjusteForm(request.POST or None)
+
+    if formulario.is_valid():
+        formulario.save()
+
+        return redirect('ajustes')
+
+    return render(request, 'hojaTrabajo/ajustes/crear.html', {'formulario': formulario})
+
+
+@login_required
+def editar_ajuste(request, id_ajuste):
+    ajuste = Ajuste.objects.get(id_ajuste=id_ajuste)
+
+    formulario = AjusteForm(request.POST or None, instance=ajuste)
+
+    if formulario.is_valid() and request.POST:
+        formulario.save()
+
+        messages.success(request, "Se almacenaron los cambios exitosamente!")
+
+        return redirect('ajustes')
+
+    return render(request, 'hojaTrabajo/ajustes/editar.html', {'formulario': formulario})
+
+
+@login_required
+def eliminar_ajuste(request, id_ajuste):
+    ajuste = Ajuste.objects.get(id_ajuste=id_ajuste)
+    temp = ajuste
+    ajuste.delete()
+    messages.success(request, "Se elimino el ajuste: " + temp.__str__())
+
+    return redirect('ajustes')
