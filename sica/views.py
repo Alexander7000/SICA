@@ -256,13 +256,14 @@ def verOrdenes(request):
 def ManodeObra(request,id_OrdendeProduccion):
     formulario = ManodeObraForm(request.POST or None)
 
-    orden = OrdendeProduccion.objects.filter(id_OrdendeProduccion=id_OrdendeProduccion)
+    orden = OrdendeProduccion.objects.get(id_OrdendeProduccion=id_OrdendeProduccion)
     if formulario.is_valid():
 
         manoObra = formulario.save(commit=False)
         manoObra.id_OrdendeProduccion=orden
+        manoObra.costo = manoObra.horas_manodeObra * manoObra.salario_manodeObra
         manoObra.save()
 
-        return redirect('ManodeObra')
+        return redirect('inicio')
 
     return render(request, 'ContabilidadCostos/ManodeObra.html', {'formulario': formulario})
