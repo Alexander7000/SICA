@@ -207,8 +207,24 @@ def calculo_IVA(request, id_partida, id_transaccion):
 def HojadeTrabajo(request):
 
     return render(request, 'HojadeTrabajo/index.html')
-@login_required()
+@login_required
 def BalanceGeneral(request):
     transacciones = Transaccion.objects.all()
-    return render(request, 'HojadeTrabajo/BalanceGeneral.html',{'transacciones': transacciones})
 
+    suma_debe = 0
+    suma_haber = 0
+
+    for transaccion in transacciones:
+        if transaccion.id_tipoTransaccion.id_tipoTransaccion == 1:
+            suma_debe += transaccion.monto
+
+        if transaccion.id_tipoTransaccion.id_tipoTransaccion == 2:
+            suma_haber += transaccion.monto
+
+    diferencia = abs(suma_debe-suma_haber)
+
+    return render(request, 'HojadeTrabajo/BalanceGeneral.html', {'transacciones': transacciones,
+
+                                                        'suma_debe': suma_debe,
+                                                        'suma_haber': suma_haber,
+                                                        'diferencia': diferencia})

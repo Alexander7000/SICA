@@ -46,35 +46,16 @@
                     {% endfor %}
                 </tbody>
 
-                 <tfoot>
+                 <tr id="suma" class="">
+                        <td> Diferencia:  ${{diferencia}}</td>
+                        <td></td>
 
-                 <tr>
-                     <td colspan="2">Total</td>
-                     <td id="tdTotal"></td>
-                 </tr>
+                        <td id="suma_debe" > ${{suma_debe}} </td>
+                        <td id="suma_haber"> ${{suma_haber}} </td>
 
-                 </tfoot>
+                    </tr>
             </table>
-            <script>
-                window.addEventListener("load",function(){
-                console.log("codigo js listo");
-                sumSueldos();
 
-                })
-                function sumSueldos(){
-                let total=0;
-                const table = document.getElementById("transacciones");
-                for( let i = 1 ; i < table.rows.length-1 ; i++){
-                   // console.log(table.row[i].cells[2].innerHTML);
-                    let rowValue = table.rows[i].cells[2].innerHTML;
-                    total=total + Number(rowValue);
-                }
-                //console.log(total);
-                const tdtotal=document.getElementById("tdTotal");
-                tdtotal.textContent=total;
-                }
-
-            </script>
             <p align="right">
                 <a name="" class="btn btn-primary" href="{% url 'inicio' %}" role="button">Regresar</a>
                 <input  name="" class="btn btn-success"  type="button" value="Imprimir" onclick="javascript:window.print()" />
