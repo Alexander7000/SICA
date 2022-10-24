@@ -42,10 +42,10 @@ INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id
 INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id) VALUES ('4102.05', 'Gastos por seguros', '4102');
 INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id) VALUES ('4102.06', 'Gastos a clientes y empleados', '4102');
 INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id) VALUES ('4201.01', 'Comisiones', '4201');
-INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id) VALUES ('4201.02', 'Intereses sobre préstamos', '4201');
+INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id) VALUES ('4201.02', 'Gasto por intereses', '4201');
 INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id) VALUES ('4201.03', 'Seguros', '4201');
 INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id) VALUES ('4202.01', 'Gastos por robo', '4202');
 INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id) VALUES ('4202.02', 'Gastos personales', '4202');
 INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id) VALUES ('5101.01', 'Ventas', '5101');
-INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id) VALUES ('5202.01', 'Otros Productos', '5202');
-INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id) VALUES ('5203.01', 'Intereses por cobrar', '5203');
+INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id) VALUES ('5201.01', 'Otros Productos', '5201');
+INSERT INTO public."subCuenta" ("id_subCuenta", "nombre_subCuenta", id_cuenta_id) VALUES ('5202.01', 'Intereses por cobrar', '5202');

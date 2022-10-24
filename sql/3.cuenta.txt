@@ -24,5 +24,5 @@ INSERT INTO public.cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('4102'
 INSERT INTO public.cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('4201', 'GASTOS FINANCIEROS', '42');
 INSERT INTO public.cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('4202', 'Otros gastos', '42');
 INSERT INTO public.cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('5101', 'INGRESOS DE OPERACIÓN', '51');
-INSERT INTO public.cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('5202', 'OTROS PRODUCTOS', '52');
-INSERT INTO public.cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('5203', 'INTERESES POR COBRAR', '52');
+INSERT INTO public.cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('5201', 'OTROS PRODUCTOS', '52');
+INSERT INTO public.cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('5202', 'INTERESES POR COBRAR', '52');

@@ -1,0 +1,59 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Estado resultado {%endblock %}
+
+{% block js %}
+<script>
+    var debe = document.getElementById("debe_total").textContent;
+    var haber = document.getElementById("haber_total").textContent
+
+    var utilidad = document.getElementById("utilidad")
+
+    if (debe < haber) {
+        utilidad.className += " table-success";
+    } else {
+        utilidad.className += " table-danger";
+    }
+</script>
+{%endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Estado de resultados </h4>
+            <table class="table table-hover " id="balanceAjustado">
+                <thead class="thead-light">
+                <tr>
+                    <th>N° de sub-cuenta</th>
+                    <th>Nombre de sub-cuenta</th>
+                    <th> Debe</th>
+                    <th> Haber</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for subCuentaAjustada in subCuentasAjustadas %}
+                <tr>
+                    <td> {{subCuentaAjustada.id_subCuenta}}</td>
+                    <td> {{subCuentaAjustada.nombre_subCuenta}}</td>
+                    <td> ${{subCuentaAjustada.debe|floatformat:2}}</td>
+                    <td> ${{subCuentaAjustada.haber|floatformat:2}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+
+                <tr id="utilidad" class="">
+                    <td> Utilidad ({{estado}}): ${{utilidad|floatformat:2}}</td>
+                    <td></td>
+                    <td id="debe_total"> ${{suma_debe|floatformat:2}}</td>
+                    <td id="haber_total"> ${{suma_haber|floatformat:2}}</td>
+                </tr>
+            </table>
+            <a name="" class="btn btn-primary" href="{% url 'hojaTrabajo' %}" role="button">Regresar</a>
+            <input name="" class="btn btn-success" type="button" value="Imprimir" onclick="javascript:window.print()"/>
+        </div>
+    </div>
+</div>
+
+{%endblock %}

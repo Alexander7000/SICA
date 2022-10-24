@@ -323,7 +323,6 @@ def balanceComprobacionAjustado(request):
         for ajuste in ajustes:
             if ajuste.id_subCuenta.id_subCuenta == subCuenta.id_subCuenta:
                 if ajuste.id_tipoTransaccion.id_tipoTransaccion == 1:
-                    print(ajuste)
                     debe += ajuste.monto
 
                 if ajuste.id_tipoTransaccion.id_tipoTransaccion == 2:
@@ -360,3 +359,65 @@ def balanceComprobacionAjustado(request):
                                                                  'suma_debe': suma_debe,
                                                                  'suma_haber': suma_haber,
                                                                  'diferencia': diferencia})
+
+
+@login_required
+def estadoResultado(request):
+    subCuentas = SubCuenta.objects.all()
+    ajustes = Ajuste.objects.all()
+    transacciones = Transaccion.objects.all()
+
+    for subCuenta in subCuentas:
+        debe = 0
+        haber = 0
+        subCuenta.debe = subCuenta.haber = 0
+
+        for ajuste in ajustes:
+            if ajuste.id_subCuenta.id_subCuenta == subCuenta.id_subCuenta:
+                if ajuste.id_tipoTransaccion.id_tipoTransaccion == 1:
+                    debe += ajuste.monto
+
+                if ajuste.id_tipoTransaccion.id_tipoTransaccion == 2:
+                    haber += ajuste.monto
+
+        for transaccion in transacciones:
+            if transaccion.id_subCuenta.id_subCuenta == subCuenta.id_subCuenta:
+
+                if transaccion.id_tipoTransaccion.id_tipoTransaccion == 1:
+                    debe += transaccion.monto
+
+                if transaccion.id_tipoTransaccion.id_tipoTransaccion == 2:
+                    haber += transaccion.monto
+
+        if debe > haber:
+            subCuenta.debe = debe - haber
+        else:
+            subCuenta.haber = haber - debe
+
+        subCuenta.save()
+
+    subCuentasAjustadas = SubCuenta.objects.filter((Q(debe__gt=0.00) | Q(haber__gt=0.00)) &
+                                                   ((Q(id_subCuenta__contains='4101') | Q(id_subCuenta__contains='4102') | Q(id_subCuenta__contains='4201')) |
+                                                   (Q(id_subCuenta__contains='5101') | Q(id_subCuenta__contains='5201') | Q(id_subCuenta__contains='5202'))))
+
+
+    suma_debe = 0
+    suma_haber = 0
+
+    for subCuentaAjustada in subCuentasAjustadas:
+        suma_debe += subCuentaAjustada.debe
+        suma_haber += subCuentaAjustada.haber
+
+    utilidad = abs(suma_debe - suma_haber)
+
+    if suma_debe < suma_haber:
+        estado = "Ganancia"
+    else:
+        estado = "Perdida"
+
+    return render(request, 'hojaTrabajo/estadoResultado.html', {'subCuentasAjustadas': subCuentasAjustadas,
+                                                                'suma_debe': suma_debe,
+                                                                'suma_haber': suma_haber,
+                                                                'utilidad': utilidad,
+                                                                'estado': estado})
+

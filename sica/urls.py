@@ -32,4 +32,5 @@ urlpatterns = [
     path('hojaTrabajo/ajustes/eliminar/<int:id_ajuste>', eliminar_ajuste, name='eliminar_ajuste'),
 
     path('hojaTrabajo/balanceComprobacionAjustado', balanceComprobacionAjustado, name='balanceComprobacionAjustado'),
+    path('hojaTrabajo/estadoResultado', estadoResultado, name='estadoResultado'),
 ]
