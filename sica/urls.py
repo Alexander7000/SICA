@@ -10,6 +10,7 @@ urlpatternsTransaccion = [
     path('eliminar/<int:id_transaccion>', eliminar_transaccion, name='eliminar_transaccion'),
     path('transaccion_IVA', transaccion_IVA, name='transaccion_IVA'),
     path('calculo_IVA/<int:id_transaccion>', calculo_IVA, name='calculo_IVA'),
+
 ]
 
 urlpatterns = [
@@ -24,4 +25,8 @@ urlpatterns = [
     path('transacciones/<int:id_partida>/', include(urlpatternsTransaccion)),
     path('HojadeTrabajo', HojadeTrabajo, name='HojadeTrabajo'),
     path('HojadeTrabajo/BalanceGeneral', BalanceGeneral, name='BalanceGeneral'),
+    path('ContabilidadCostos', ContabilidadCostos, name='ContabilidadCostos'),
+    path('ContabilidadCostos/OrdenProduccion.html', OrdenProduccion, name='OrdenProduccion'),
+    path('ContabilidadCostos/verOrdenes.html', verOrdenes, name='verOrdenes'),
+    path('ContabilidadCostos/ManodeObra.html', ManodeObra, name='ManodeObra'),
 ]

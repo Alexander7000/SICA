@@ -39,3 +39,21 @@ class CalculoIVAForm(forms.ModelForm):
             'fecha_transaccionT': DateInput(attrs={'class': 'form-control'}),
             'monto': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
         }
+
+class OrdendeProduccionForm(forms.ModelForm):
+    class Meta:
+        model = OrdendeProduccion
+        fields = '__all__'
+        exclude = ['id_OrdendeProduccion', ]
+        widgets = {
+            'fecha_Actual': DateInput(attrs={'class': 'form-control'}),
+        }
+
+class ManodeObraForm(forms.ModelForm):
+    class Meta:
+        model = ManodeObra
+        fields = '__all__'
+        exclude = ['id_ManodeObra']
+        widgets = {
+            'fecha_manodeObra': DateInput(attrs={'class': 'form-control'}),
+        }

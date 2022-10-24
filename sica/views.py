@@ -228,3 +228,51 @@ def BalanceGeneral(request):
                                                         'suma_debe': suma_debe,
                                                         'suma_haber': suma_haber,
                                                         'diferencia': diferencia})
+@login_required
+def ContabilidadCostos(request):
+
+    return render(request, 'ContabilidadCostos/index.html')
+
+@login_required
+def OrdenProduccion(request):
+    formulario = OrdendeProduccionForm(request.POST or None)
+
+    if formulario.is_valid():
+        produccion = formulario.save(commit=False)
+
+        produccion.save()
+
+        return redirect('ManodeObra')
+
+    return render(request, 'ContabilidadCostos/OrdenProduccion.html', {'formulario': formulario})
+
+@login_required
+def ManodeObra(request):
+    formulario = ManodeObraForm(request.POST or None)
+
+    if formulario.is_valid():
+        manodeObra = formulario.save(commit=False)
+
+        manodeObra.save()
+
+        return redirect('ManodeObra')
+
+    return render(request, 'ContabilidadCostos/OrdenProduccion.html', {'formulario': formulario})
+
+@login_required
+def verOrdenes(request):
+    ordenes = OrdendeProduccion.objects.all()
+    return render(request, 'ContabilidadCostos/verOrdenes.html', {'ordenes': ordenes})
+
+@login_required
+def ManodeObra(request):
+    formulario = ManodeObraForm(request.POST or None)
+
+    if formulario.is_valid():
+        manoObra = formulario.save(commit=False)
+
+        manoObra.save()
+
+        return redirect('inicio')
+
+    return render(request, 'ContabilidadCostos/ManodeObra.html', {'formulario': formulario})

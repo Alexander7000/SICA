@@ -110,4 +110,47 @@ class Transaccion(models.Model):
     def __str__(self):
         return self.fecha_transaccionT.__format__('%d/%m/%Y').__str__() + " - " + self.id_subCuenta.id_subCuenta + " - " + self.id_subCuenta.nombre_subCuenta + " - " + self.id_tipoTransaccion.nombre_tipoTransaccion + " - $" + self.monto.__str__()
 
+class Producto(models.Model):
+    id_Producto = models.AutoField(primary_key=True, null=False, blank=False)
+    nombre_Producto = models.CharField("Nombre",max_length=50, null=False, blank=False)
+    precio_Producto = models.FloatField("Precio", null=False, blank=False)
 
+    class Meta:
+        db_table ='Producto'
+        ordering = ["id_Producto"]
+
+    def __str__(self):
+        return self.nombre_Producto+" - $" + self.precio_Producto.__str__()
+
+
+class OrdendeProduccion(models.Model):
+    id_OrdendeProduccion = models.AutoField(primary_key=True, null=False, blank=False)
+    nombre_cliente = models.CharField("Nombre",max_length=50,null=False, blank=False)
+    apellido_cliente = models.CharField("Apellido", max_length=50,null=False, blank=False)
+    fecha_Actual = models.DateField("Fecha de Compra", null=False, blank=False,help_text="Consejo: <em>Presione en el calendario</em>.",)
+    producto_Orden = models.ForeignKey(Producto, verbose_name="Lista de Productos", on_delete=models.PROTECT, null=False, blank=False)
+    numero_Pedido = models.IntegerField("N° de Pedido ", null=True, blank=False)
+    cantidad_Producto = models.IntegerField("Cantidad de Producto", null=True, blank=False)
+    detalles_Pedido = models.CharField("Observaciones",max_length=50,null=False, blank=False)
+
+
+    class Meta:
+        db_table = 'ordedeProduccion'
+        ordering = ["id_OrdendeProduccion"]
+
+    def __str__(self):
+        return self.id_OrdendeProduccion.id_OrdendeProduccion.__str__() + " - " + self.fecha_Actual.__format__('%d/%m/%Y').__str__() + self.cantidad_Producto.__str__() + " - " + self.numero_Pedido.__str__() + " - "
+
+class ManodeObra(models.Model):
+    id_manodeObra=models.AutoField(primary_key=True, null=False, blank=False)
+    id_OrdendeProduccion = models.ForeignKey(OrdendeProduccion,verbose_name="N° Orden", on_delete=models.PROTECT,null=False, blank=False)
+    fecha_manodeObra = models.DateField("Fecha", null=False, blank=False,help_text="Consejo: <em>Presione en el calendario</em>.", )
+    horas_manodeObra = models.IntegerField("Horas", null=False, blank=False)
+    salario_manodeObra = models.FloatField("Salario por Hora", validators=[MinValueValidator(0)],null=False, blank=False)
+    costo = models.DecimalField(null=False, blank=False, max_digits=10,decimal_places=2)
+    class Meta:
+        db_table ='ManodeObra'
+        ordering = ["id_OrdendeProduccion"]
+
+    def __str__(self):
+        return self.id_OrdendeProduccion.__str__()+" - $" + self.horas_manodeObra.__str__()+" - $"+self.salario_manodeObra.__str__()+ self.fecha_manodeObra.__format__('%d/%m/%Y').__str__()+" - $"+self.costo.__str__()
