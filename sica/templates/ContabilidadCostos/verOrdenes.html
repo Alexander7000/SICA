@@ -42,6 +42,9 @@
                             <td> {{OrdendeProduccion.cantidad_Producto}}</td>
                             <td> {{OrdendeProduccion.numero_Pedido}}</td>
                             <td> {{OrdendeProduccion.detalles_Pedido}}</td>
+                            <td>
+                                <a class="btn btn-info" href="{% url 'verManodeObra'  %}" role="button">Ver Mano de Obra</a>
+                            </td>
                         </tr>
                     {% endfor %}
 
