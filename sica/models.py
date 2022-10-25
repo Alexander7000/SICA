@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
@@ -11,13 +13,14 @@ from smart_selects.db_fields import ChainedForeignKey
 
 def validar_fecha(fecha_transaccion):
     fecha_actual = date.today()
-    anio_contable = fecha_actual.year - 1
-    anio_actual = fecha_transaccion.year
 
-    if anio_contable <= anio_actual <= fecha_actual.year:
-        return anio_actual
+    if fecha_actual.year == fecha_transaccion.year:
+        if fecha_actual.month == fecha_transaccion.month:
+            return fecha_transaccion
+        else:
+            raise ValidationError("El mes es diferente al actual")
     else:
-        raise ValidationError("Digite una fecha valida")
+        raise ValidationError("El año es diferente al actual")
 
 
 class Clase(models.Model):

@@ -25,6 +25,47 @@ def catalogo(request):
 
 
 @login_required
+def libros(request):
+    return render(request, 'libros/index.html')
+
+
+@login_required
+def mayor(request):
+    subCuentas = SubCuenta.objects.filter(Q(debe__gt=0.00) | Q(haber__gt=0.00))
+
+    return render(request, 'libros/mayor.html', {'subCuentas': subCuentas})
+
+
+@login_required
+def movimientos(request, id_subCuenta):
+    subCuenta = SubCuenta.objects.get(id_subCuenta=id_subCuenta)
+
+    id = subCuenta.id_subCuenta
+    nombre = subCuenta.nombre_subCuenta
+
+    transacciones = Transaccion.objects.filter(id_subCuenta=id_subCuenta)
+
+    suma_debe = 0
+    suma_haber = 0
+
+    for transaccion in transacciones:
+        if transaccion.id_tipoTransaccion.id_tipoTransaccion == 1:
+            suma_debe += transaccion.monto
+
+        if transaccion.id_tipoTransaccion.id_tipoTransaccion == 2:
+            suma_haber += transaccion.monto
+
+    diferencia = abs(suma_debe-suma_haber)
+
+    return render(request, 'libros/movimientos.html', {'transacciones': transacciones,
+                                                       'id': id,
+                                                       'nombre': nombre,
+                                                       'suma_debe': suma_debe,
+                                                       'suma_haber': suma_haber,
+                                                       'diferencia': diferencia})
+
+
+@login_required
 def partidas(request):
     partidas = Partida.objects.all()
 
