@@ -11,7 +11,7 @@
     <div class="card">
          <div class="card-header">
             <div class="d-flex justify-content-between align-items-cente">
-             <a name="" id="" class="btn btn-success" href="" role="button">Agregar nueva Orden</a>
+             <a name="" id="" class="btn btn-success" href="{% url 'OrdenProduccion'  %}" role="button">Agregar nueva Orden</a>
 
                 </div>
     </div>
@@ -42,6 +42,9 @@
                             <td> {{OrdendeProduccion.cantidad_Producto}}</td>
                             <td> {{OrdendeProduccion.numero_Pedido}}</td>
                             <td> {{OrdendeProduccion.detalles_Pedido}}</td>
+                            <td>
+                                <a class="btn btn-info" href="{% url 'verManodeObra'  %}" role="button">Ver Mano de Obra</a>
+                            </td>
                         </tr>
                     {% endfor %}
 
@@ -50,7 +53,7 @@
             </table>
 
         </div>
-            <a class="btn btn-primary" href="{% url 'inicio' %}" onclick="" role="button">Regresar</a>
+            <a class="btn btn-primary" href="{% url 'ContabilidadCostos' %}" onclick="" role="button">Regresar</a>
         </div>
     </div>
 </div>

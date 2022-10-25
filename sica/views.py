@@ -253,7 +253,7 @@ def verOrdenes(request):
     return render(request, 'ContabilidadCostos/verOrdenes.html', {'ordenes': ordenes})
 
 @login_required
-def ManodeObra(request,id_OrdendeProduccion):
+def ManodeObraVista(request,id_OrdendeProduccion):
     formulario = ManodeObraForm(request.POST or None)
 
     orden = OrdendeProduccion.objects.get(id_OrdendeProduccion=id_OrdendeProduccion)
@@ -264,7 +264,7 @@ def ManodeObra(request,id_OrdendeProduccion):
         manoObra.costo = manoObra.horas_manodeObra * manoObra.salario_manodeObra
         manoObra.save()
 
-        return redirect('inicio')
+    return redirect('Prorrateo')
 
     return render(request, 'ContabilidadCostos/ManodeObra.html', {'formulario': formulario})
 
@@ -291,3 +291,7 @@ def Prorrateo(request,id_OrdendeProduccion):
 
     return render(request, 'ContabilidadCostos/Prorrateo.html', {'formulario': formulario})
 
+@login_required
+def verManodeObra(request):
+    obras = ManodeObra.objects.all()
+    return render(request, 'ContabilidadCostos/verManodeObra.html',{'obras' : obras})

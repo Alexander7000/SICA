@@ -28,6 +28,7 @@ urlpatterns = [
     path('ContabilidadCostos', ContabilidadCostos, name='ContabilidadCostos'),
     path('ContabilidadCostos/OrdenProduccion.html', OrdenProduccion, name='OrdenProduccion'),
     path('ContabilidadCostos/verOrdenes.html', verOrdenes, name='verOrdenes'),
-    path('ContabilidadCostos/ManodeObra.html/<int:id_OrdendeProduccion>', ManodeObra, name='ManodeObra'),
+    path('ContabilidadCostos/ManodeObra.html/<int:id_OrdendeProduccion>', ManodeObraVista, name='ManodeObra'),
     path('ContabilidadCostos/Prorrateo.html/<int:id_OrdendeProduccion>', Prorrateo, name='Prorrateo'),
+    path('ContabilidadCostos/verManodeObra.html', verManodeObra, name='verManodeObra'),
 ]

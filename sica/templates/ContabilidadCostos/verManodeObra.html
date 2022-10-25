@@ -1,0 +1,52 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Listado de Mano de Obra {%endblock %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="card">
+
+        <div class="card-body">
+            <h4 class="card-title">Mano de Obra</h4>
+        <div class="col-sm">
+            <table class="table table-sm table-hover " >
+                <thead class="thead-light">
+                    <tr>
+                        <th>N° de Orden </th>
+                        <th>Fecha</th>
+                        <th> Número de Horas </th>
+                        <th> Salario Por Hora </th>
+                        <th>Costo</th>
+
+
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                    {% for ManodeObra in manodeObra %}
+                        <tr>
+                            <td> {{ManodeObra.id_OrdendeProduccion}}</td>
+                            <td> {{ManodeObra.fecha_manodeObra}}</td>
+                            <td> {{ManodeObra.horas_manodeObra}}</td>
+                            <td> ${{ManodeObra.salario_manodeObra}}</td>
+                            <td> ${{ManodeObra.costo}}</td>
+
+                        </tr>
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+
+        </div>
+            <a class="btn btn-primary" href="{% url 'verOrdenes' %}" onclick="" role="button">Regresar</a>
+        </div>
+    </div>
+</div>
+{%endblock %}
