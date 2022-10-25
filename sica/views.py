@@ -38,6 +38,30 @@ def mayor(request):
 
 @login_required
 def movimientos(request, id_subCuenta):
+    subCuentas = SubCuenta.objects.all()
+    transacciones = Transaccion.objects.all()
+
+    for subCuenta in subCuentas:
+        debe = 0
+        haber = 0
+        subCuenta.debe = subCuenta.haber = 0
+
+        for transaccion in transacciones:
+            if transaccion.id_subCuenta.id_subCuenta == subCuenta.id_subCuenta:
+
+                if transaccion.id_tipoTransaccion.id_tipoTransaccion == 1:
+                    debe += transaccion.monto
+
+                if transaccion.id_tipoTransaccion.id_tipoTransaccion == 2:
+                    haber += transaccion.monto
+
+        if debe > haber:
+            subCuenta.debe = debe - haber
+        else:
+            subCuenta.haber = haber - debe
+
+        subCuenta.save()
+
     subCuenta = SubCuenta.objects.get(id_subCuenta=id_subCuenta)
 
     id = subCuenta.id_subCuenta
