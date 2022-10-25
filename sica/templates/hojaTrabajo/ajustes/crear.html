@@ -1,0 +1,31 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Registro Ajuste {%endblock %}
+{% load crispy_forms_tags %}
+{% block contenido %}
+<div class="row align-items-center justify-content-center">
+    <div class="col-md-5 ">
+        <div class="card">
+            <div class="card-header">
+                Registro del ajuste
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Ingrese los datos del ajuste</h4>
+
+                <form enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ formulario.media.js }}
+                        {{ formulario|crispy }}
+                    </div>
+
+                    <input name="" class="btn btn-success"  type="submit" value="Registrar Ajuste" >
+
+                    <a name="" class="btn btn-primary" href="{% url 'ajustes' %}" role="button">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

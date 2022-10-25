@@ -15,6 +15,10 @@ urlpatternsTransaccion = [
 urlpatterns = [
     path('', inicio, name='inicio'),
     path('catalogo', catalogo, name='catalogo'),
+    path('libros', libros, name='libros'),
+
+    path('mayor', mayor, name='mayor'),
+    path('movimientos/<str:id_subCuenta>', movimientos, name='movimientos'),
 
     path('partidas', partidas, name='partidas'),
     path('partidas/crear_partida', crear_partida, name='crear_partida'),
@@ -22,6 +26,17 @@ urlpatterns = [
     path('partidas/eliminar/<int:id_partida>', eliminar_partida, name='eliminar_partida'),
 
     path('transacciones/<int:id_partida>/', include(urlpatternsTransaccion)),
-    path('HojadeTrabajo', HojadeTrabajo, name='HojadeTrabajo'),
-    path('HojadeTrabajo/BalanceGeneral', BalanceGeneral, name='BalanceGeneral'),
+
+    path('hojaTrabajo', hojaTrabajo, name='hojaTrabajo'),
+    path('hojaTrabajo/balanceComprobacion', balanceComprobacion, name='balanceComprobacion'),
+
+    path('hojaTrabajo/ajustes', ajustes, name='ajustes'),
+    path('hojaTrabajo/ajustes/crear_ajuste', crear_ajuste, name='crear_ajuste'),
+    path('hojaTrabajo/ajustes/editar/<int:id_ajuste>', editar_ajuste, name='editar_ajuste'),
+    path('hojaTrabajo/ajustes/eliminar/<int:id_ajuste>', eliminar_ajuste, name='eliminar_ajuste'),
+
+    path('hojaTrabajo/balanceComprobacionAjustado', balanceComprobacionAjustado, name='balanceComprobacionAjustado'),
+    path('hojaTrabajo/estadoResultado', estadoResultado, name='estadoResultado'),
+    path('hojaTrabajo/estadoCapital', estadoCapital, name='estadoCapital'),
+    path('hojaTrabajo/balanceGeneral', balanceGeneral, name='balanceGeneral')
 ]

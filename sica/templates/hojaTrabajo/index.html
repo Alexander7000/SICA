@@ -1,0 +1,125 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Inicio {%endblock %}
+
+{% block contenido %}
+
+<div class="container" >
+<div class="jumbotron">
+    <center><h1 class="display-6">Hoja de Trabajo</h1></center>
+    <hr class="my-2">
+    <br>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="card text-white bg-dark text-center" style="max-width: 20rem;">
+                <div class="card-header">
+                    <h5 class="card-title">1. Balance de comprobacion</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Estado financiero que refleja tanto la suma del debe como
+                        del haber de las diferentes cuentas y su saldo correspondiente
+                    </p>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-light btn-lg" href="{% url 'balanceComprobacion' %}" role="button">Empezar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div class="card text-dark bg-white  text-center" style="max-width: 20rem;">
+                <div class="card-header">
+                    <h5 class="card-title">2. Ajustes</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Este apartado nos permite la acción de modificar o ingresar los gastos, activos y pasivos
+                        que se realicen durante el periodo
+                    </p>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-dark btn-lg" href="{% url 'ajustes' %}" role="button">Empezar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div class="card text-white bg-dark text-center" style="max-width: 20rem;">
+                <div class="card-header">
+                    <h5 class="card-title">3. Balance de comprobacion ajustado</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Comprende un listado de las cuentas y sus saldos, luego de hacer los ajustes correspondientes.
+                    </p>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-light btn-lg" href="{% url 'balanceComprobacionAjustado' %}" role="button">Empezar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm">
+            <div class="card text-dark bg-white  text-center" style="max-width: 20rem;">
+                <div class="card-header">
+                    <h5 class="card-title">4. Estado de resultado</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Estado financiero que muestra ordenada y detalladamente la forma de cómo se obtuvo el resultado
+                        del ejercicio durante un periodo
+                    </p>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-dark btn-lg" href="{% url 'estadoResultado' %}" role="button">Empezar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div class="card text-white bg-dark text-center" style="max-width: 20rem;">
+                <div class="card-header">
+                    <h5 class="card-title">5. Estado de capital</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Estado financiero que que muestra las alteraciones sufridas en el
+                        patrimonio de los socios y accionistas de la empresa.
+                    </p>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-light btn-lg" href="{% url 'estadoCapital' %}" role="button">Empezar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div class="card text-dark bg-white  text-center" style="max-width: 20rem;">
+                <div class="card-header">
+                    <h5 class="card-title">6. Balance general</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Informe financiero contable que refleja la situación económica y financiera
+                        de la empresa en un momento determinado
+                    </p>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-dark btn-lg" href="{% url 'balanceGeneral' %}" role="button">Empezar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+{%endblock %}

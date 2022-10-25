@@ -1,0 +1,10 @@
+INSERT INTO grupo (id_grupo, nombre_grupo, id_clase_id) VALUES ('11', 'Activo Corriente', '1');
+INSERT INTO grupo (id_grupo, nombre_grupo, id_clase_id) VALUES ('12', 'Activo No Corriente', '1');
+INSERT INTO grupo (id_grupo, nombre_grupo, id_clase_id) VALUES ('21', 'Pasivo Corriente', '2');
+INSERT INTO grupo (id_grupo, nombre_grupo, id_clase_id) VALUES ('22', 'Pasivo No Corriente', '2');
+INSERT INTO grupo (id_grupo, nombre_grupo, id_clase_id) VALUES ('31', 'Capital y Reserva', '3');
+INSERT INTO grupo (id_grupo, nombre_grupo, id_clase_id) VALUES ('32', 'Resultados por aplicar', '3');
+INSERT INTO grupo (id_grupo, nombre_grupo, id_clase_id) VALUES ('41', 'Costos y Gastos de Operación', '4');
+INSERT INTO grupo (id_grupo, nombre_grupo, id_clase_id) VALUES ('42', 'Otros Costos y Gastos', '4');
+INSERT INTO grupo (id_grupo, nombre_grupo, id_clase_id) VALUES ('51', 'Ingresos por Ventas y Servicios', '5');
+INSERT INTO grupo (id_grupo, nombre_grupo, id_clase_id) VALUES ('52', 'Otros productos', '5');

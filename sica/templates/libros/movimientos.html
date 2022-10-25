@@ -1,0 +1,55 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Movimientos {%endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Lista de movimientos
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Movimientos de la cuenta - {{id}} - {{nombre}}</h4>
+
+            <table class="table table-hover ">
+                <thead class="thead-light">
+                <tr>
+                    <th>Fecha de Transacción</th>
+                    <th>N° de partida</th>
+                    <th>Descripción de la transacción</th>
+                    <th>Debe</th>
+                    <th>Haber</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    {% for transaccion in transacciones %}
+                    <tr>
+                        <td> {{transaccion.fecha_transaccionT}}</td>
+                        <td> {{transaccion.id_partida.id_partida}}</td>
+                        <td> {{transaccion.descripcion_transaccionT}}</td>
+
+                        <td> {% if transaccion.id_tipoTransaccion.id_tipoTransaccion == 1 %}
+                            ${{transaccion.monto}}
+                            {% endif %}
+                        </td>
+                        <td> {% if transaccion.id_tipoTransaccion.id_tipoTransaccion == 2 %}
+                            ${{transaccion.monto}}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr id="suma" class="table-info">
+                        <td> Saldo: ${{diferencia}}</td>
+                        <td></td>
+                        <td></td>
+                        <td> ${{suma_debe}}</td>
+                        <td> ${{suma_haber}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="btn btn-primary" href="{% url 'mayor' %}" role="button">Regresar</a>
+        </div>
+    </div>
+</div>
+{%endblock %}

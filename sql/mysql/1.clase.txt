@@ -1,0 +1,8 @@
+INSERT INTO clase (id_clase, nombre_clase) VALUES ('1', 'Activo');
+INSERT INTO clase (id_clase, nombre_clase) VALUES ('2', 'Pasivo');
+INSERT INTO clase (id_clase, nombre_clase) VALUES ('3', 'Patrimonio');
+INSERT INTO clase (id_clase, nombre_clase) VALUES ('4', 'Cuentas de Resultado Deudoras');
+INSERT INTO clase (id_clase, nombre_clase) VALUES ('5', 'Cuentas de Resultado Acreedoras');
+
+
+

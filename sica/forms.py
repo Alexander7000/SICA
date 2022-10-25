@@ -30,12 +30,23 @@ class TransaccionForm(forms.ModelForm):
 class TransaccionIVAForm(forms.Form):
     transaccion_iva = forms.ModelChoiceField(queryset=Transaccion.objects.filter(id_partida=1), label='Seleccione una transaccion', )
 
+
 class CalculoIVAForm(forms.ModelForm):
     subCuenta_id = forms.ModelChoiceField(queryset=SubCuenta.objects.filter(id_subCuenta=1), label='Sub-Cuenta')
+
     class Meta:
         model = Transaccion
         fields = ['fecha_transaccionT', 'subCuenta_id', 'descripcion_transaccionT', 'id_tipoTransaccion', 'monto']
         widgets = {
             'fecha_transaccionT': DateInput(attrs={'class': 'form-control'}),
+            'monto': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+        }
+
+
+class AjusteForm(forms.ModelForm):
+    class Meta:
+        model = Ajuste
+        fields = '__all__'
+        widgets = {
             'monto': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
         }

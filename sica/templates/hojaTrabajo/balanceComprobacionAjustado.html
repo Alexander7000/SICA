@@ -1,0 +1,46 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Balance General Ajustado {%endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Balance General Ajustado</h4>
+            <table class="table table-hover " id="balanceAjustado">
+                <thead class="thead-light">
+                    <tr>
+                        <th>N° de sub-cuenta</th>
+                        <th>Nombre de sub-cuenta</th>
+                        <th> Debe </th>
+                        <th> Haber </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for subCuentaAjustada in subCuentasAjustadas %}
+                        <tr>
+                            <td> {{subCuentaAjustada.id_subCuenta}}</td>
+                            <td> {{subCuentaAjustada.nombre_subCuenta}}</td>
+                            <td> ${{subCuentaAjustada.debe|floatformat:2}} </td>
+                            <td> ${{subCuentaAjustada.haber|floatformat:2}} </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+                 <tr id="suma" class="">
+                        <td> Diferencia:  ${{diferencia|floatformat:2}}</td>
+                        <td></td>
+
+                        <td id="suma_debe" > ${{suma_debe|floatformat:2}} </td>
+                        <td id="suma_haber"> ${{suma_haber|floatformat:2}} </td>
+
+                    </tr>
+            </table>
+                <a name="" class="btn btn-primary" href="{% url 'hojaTrabajo' %}" role="button">Regresar</a>
+                <input  name="" class="btn btn-success"  type="button" value="Imprimir" onclick="javascript:window.print()" />
+        </div>
+    </div>
+</div>
+
+{%endblock %}

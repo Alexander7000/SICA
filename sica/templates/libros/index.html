@@ -1,0 +1,50 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Libros contables {%endblock %}
+
+{% block contenido %}
+
+<div class="container">
+<div class="jumbotron">
+    <center><h1 class="display-6"> Libros contables </h1></center>
+    <hr class="my-2">
+    <br>
+
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-5 ">
+            <div class="card text-white bg-dark text-center" style="max-width: 20rem;">
+                <div class="card-header">
+                    <h5 class="card-title"> Libro diario </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Libro contable donde se registran, día a día, las transacciones económicas de la empresa
+                    </p>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-light btn-lg" href="{% url 'partidas' %}" role="button">Empezar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 ">
+            <div class="card text-dark bg-white  text-center" style="max-width: 20rem;">
+                <div class="card-header">
+                    <h5 class="card-title">Libro mayor</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Libro contable donde se visualiza el monto de cada una de las cuentas contables de la empresa.
+                    </p>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-dark btn-lg" href="{% url 'mayor' %}" role="button">Empezar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+{%endblock %}

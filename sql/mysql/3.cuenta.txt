@@ -1,0 +1,28 @@
+
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('1101','EFECTIVO Y EQUIVALENTES DE EFECTIVO','11');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('1102', 'CUENTAS Y DOCUMENTOS POR COBRAR', '11');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('1103', 'INVENTARIOS', '11');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('1104', 'GASTOS PAGADOS POR ANTICIPADOS', '11');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('1105', 'PAGO SOBRE LA RENTA', '11');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('1106', 'IVA CREDITO FISCAL', '11');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('1201', 'PROPIEDADES, PLANTA Y EQUIPO', '12');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('1202', 'CUENTAS POR COBRAR A LARGO PLAZO', '12');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('1203', 'Depreciación acumulada', '12');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('2101', 'PRÉSTAMOS A CORTO PLAZO', '21');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('2102', 'CUENTAS COMERCIALES POR PAGAR', '21');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('2103', 'ACREEDORES VARIOS', '21');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('2104', 'IMPUESTO SOBRE LA RENTA POR PAGAR', '21');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('2105', 'IVA - DEBITO FISCAL', '21');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('2201', 'PRÉSTAMOS POR PAGAR A LARGO PLAZO', '22');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('2202', 'BENEFICIOS POR PAGAR A LOS EMPLEADOS - LARGO PLAZO', '22');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('3101', 'CAPITAL SOCIAL', '31');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('3102', 'RESERVA LEGAL', '31');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('3201', 'UTILIDADES DE EJERCICIOS ANTERIORES', '32');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('3202', 'UTILIDADES DEL PRESENTE EJERCICIO', '32');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('4101', 'COSTO DE VENTAS', '41');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('4102', 'GASTOS ADMINISTRATIVOS Y VENTAS', '41');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('4201', 'GASTOS FINANCIEROS', '42');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('4202', 'Otros gastos', '42');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('5101', 'INGRESOS DE OPERACIÓN', '51');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('5201', 'OTROS PRODUCTOS', '52');
+INSERT INTO cuenta (id_cuenta, nombre_cuenta, id_grupo_id) VALUES ('5202', 'INTERESES POR COBRAR', '52');
