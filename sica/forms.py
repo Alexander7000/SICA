@@ -53,7 +53,12 @@ class ManodeObraForm(forms.ModelForm):
     class Meta:
         model = ManodeObra
         fields = '__all__'
-        exclude = ['id_OrdendeProduccion']
+        exclude = ['id_OrdendeProduccion','costo']
         widgets = {
             'fecha_manodeObra': DateInput(attrs={'class': 'form-control'}),
         }
+class ProrrateoForm(forms.ModelForm):
+    class Meta:
+        model = Prorrateo
+        fields = '__all__'
+        exclude = ['id_Prorrateo','totalCIF','tasapredeterminadaCIF'+'id_OrdendeProduccion' ]

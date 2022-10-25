@@ -256,13 +256,38 @@ def verOrdenes(request):
 def ManodeObra(request,id_OrdendeProduccion):
     formulario = ManodeObraForm(request.POST or None)
 
-    orden = OrdendeProduccion.objects.filter(id_OrdendeProduccion=id_OrdendeProduccion)
+    orden = OrdendeProduccion.objects.get(id_OrdendeProduccion=id_OrdendeProduccion)
     if formulario.is_valid():
 
         manoObra = formulario.save(commit=False)
         manoObra.id_OrdendeProduccion=orden
+        manoObra.costo = manoObra.horas_manodeObra * manoObra.salario_manodeObra
         manoObra.save()
 
-        return redirect('ManodeObra')
+        return redirect('inicio')
 
     return render(request, 'ContabilidadCostos/ManodeObra.html', {'formulario': formulario})
+
+@login_required
+def Prorrateo(request,id_OrdendeProduccion):
+    formulario = ProrrateoForm(request.POST or None)
+
+    orden = OrdendeProduccion.objects.get(id_OrdendeProduccion=id_OrdendeProduccion)
+    if formulario.is_valid():
+
+        prorrateo = formulario.save(commit=False)
+        prorrateo.id_OrdendeProduccion=orden
+        prorrateo.totalCIF = prorrateo.manodeObraIndirecta+\
+                          prorrateo.alquiler+\
+                          prorrateo.segurosEquipo+\
+                          prorrateo.depreciacion+\
+                          prorrateo.energia+\
+                          prorrateo.amortizacion+\
+                          prorrateo.otrosGastos
+        prorrateo.tasapredeterminadaCIF = prorrateo.totalCIF/prorrateo.aplicacionHMOD
+        prorrateo.save()
+
+        return redirect('inicio')
+
+    return render(request, 'ContabilidadCostos/Prorrateo.html', {'formulario': formulario})
+

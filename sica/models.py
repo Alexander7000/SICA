@@ -139,7 +139,7 @@ class OrdendeProduccion(models.Model):
         ordering = ["id_OrdendeProduccion"]
 
     def __str__(self):
-        return self.id_OrdendeProduccion.id_OrdendeProduccion.__str__() + " - " + self.fecha_Actual.__format__('%d/%m/%Y').__str__() + self.cantidad_Producto.__str__() + " - " + self.numero_Pedido.__str__() + " - "
+        return self.id_OrdendeProduccion.__str__() + " - " + self.fecha_Actual.__format__('%d/%m/%Y').__str__() + self.cantidad_Producto.__str__() + " - " + self.numero_Pedido.__str__() + " - "
 
 class ManodeObra(models.Model):
     id_manodeObra=models.AutoField(primary_key=True, null=False, blank=False)
@@ -154,3 +154,36 @@ class ManodeObra(models.Model):
 
     def __str__(self):
         return self.id_OrdendeProduccion.__str__()+" - $" + self.horas_manodeObra.__str__()+" - $"+self.salario_manodeObra.__str__()+ self.fecha_manodeObra.__format__('%d/%m/%Y').__str__()+" - $"+self.costo.__str__()
+
+
+class Prorrateo(models.Model):
+    id_Prorrateo=models.AutoField(primary_key=True, null=False, blank=False)
+    manodeObraIndirecta = models.IntegerField("Mano de Obra Indirecta", null=False, blank=False, validators=[MinValueValidator(0)])
+    alquiler = models.FloatField("Alquiler del local", null=False, blank=False, validators=[MinValueValidator(0)])
+    segurosEquipo = models.FloatField("Seguro y Equipo", null=False, blank=False, validators=[MinValueValidator(0)])
+    depreciacion = models.FloatField("Depreciacion", null=False, blank=False, validators=[MinValueValidator(0)])
+    energia = models.FloatField("Energia Electrica", null=False, blank=False, validators=[MinValueValidator(0)])
+    amortizacion = models.FloatField("Amortizacion", null=False, blank=False, validators=[MinValueValidator(0)])
+    otrosGastos = models.FloatField("Otros Gastos", null=False, blank=False, validators=[MinValueValidator(0)])
+    totalCIF = models.FloatField("CIF", null=False, blank=False, validators=[MinValueValidator(0)])
+    aplicacionHMOD = models.FloatField("Base HMOD", null=False, blank=False, validators=[MinValueValidator(0)])
+    tasapredeterminadaCIF = models.DecimalField("Tasa CIF", null=False, blank=False, validators=[MinValueValidator(0)], max_digits=10,decimal_places=2)
+    id_OrdendeProduccion = models.ForeignKey(OrdendeProduccion, verbose_name="N° Orden", on_delete=models.PROTECT,
+                                             null=False, blank=False)
+
+    class Meta:
+        db_table ='prorrateo'
+        ordering = ["id_Prorrateo"]
+
+    def __str__(self):
+        return " - $" + self.manodeObraIndirecta.__str__()+\
+               " - $" + self.alquiler.__str__()+" - $"\
+               +self.segurosEquipo.__str__()+" - $"+\
+               self.depreciacion.__str__()+" - $"+\
+               self.energia.__str__()+" - $"+\
+               self.amortizacion.__str__()+" - $"\
+               +self.otrosGastos.__str__()+" - $"\
+               +self.totalCIF.__str__()+" - $"\
+               +self.aplicacionHMOD.__str__()+" - $"\
+               +self.tasapredeterminadaCIF.__str__()+\
+                self.id_OrdendeProduccion.__str__()
