@@ -31,13 +31,6 @@ def libros(request):
 
 @login_required
 def mayor(request):
-    subCuentas = SubCuenta.objects.filter(Q(debe__gt=0.00) | Q(haber__gt=0.00))
-
-    return render(request, 'libros/mayor.html', {'subCuentas': subCuentas})
-
-
-@login_required
-def movimientos(request, id_subCuenta):
     subCuentas = SubCuenta.objects.all()
     transacciones = Transaccion.objects.all()
 
@@ -62,6 +55,13 @@ def movimientos(request, id_subCuenta):
 
         subCuenta.save()
 
+    subCuentas = SubCuenta.objects.filter(Q(debe__gt=0.00) | Q(haber__gt=0.00))
+
+    return render(request, 'libros/mayor.html', {'subCuentas': subCuentas})
+
+
+@login_required
+def movimientos(request, id_subCuenta):
     subCuenta = SubCuenta.objects.get(id_subCuenta=id_subCuenta)
 
     id = subCuenta.id_subCuenta
