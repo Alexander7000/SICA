@@ -61,4 +61,13 @@ class ProrrateoForm(forms.ModelForm):
     class Meta:
         model = Prorrateo
         fields = '__all__'
-        exclude = ['id_Prorrateo','totalCIF','tasapredeterminadaCIF'+'id_OrdendeProduccion' ]
+        exclude = ['id_Prorrateo','totalCIF','tasapredeterminadaCIF','id_OrdendeProduccion' ]
+        widgets = {
+            'manodeObraIndirecta': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'alquiler': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'segurosEquipo': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'depreciacion': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'energia': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'amortizacion': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'otrosGastos': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+        }

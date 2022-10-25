@@ -242,7 +242,7 @@ def OrdenProduccion(request):
 
         produccion.save()
 
-        return redirect('ManodeObra',produccion.id_OrdendeProduccion)
+        return redirect('ManodeObraVista',produccion.id_OrdendeProduccion)
 
     return render(request, 'ContabilidadCostos/OrdenProduccion.html', {'formulario': formulario})
 
@@ -264,7 +264,7 @@ def ManodeObraVista(request,id_OrdendeProduccion):
         manoObra.costo = manoObra.horas_manodeObra * manoObra.salario_manodeObra
         manoObra.save()
 
-    return redirect('Prorrateo')
+    return redirect('Prorrateo',id_OrdendeProduccion)
 
     return render(request, 'ContabilidadCostos/ManodeObra.html', {'formulario': formulario})
 
@@ -284,7 +284,7 @@ def Prorrateo(request,id_OrdendeProduccion):
                           prorrateo.energia+\
                           prorrateo.amortizacion+\
                           prorrateo.otrosGastos
-        prorrateo.tasapredeterminadaCIF = prorrateo.totalCIF/prorrateo.aplicacionHMOD
+        prorrateo.tasapredeterminadaCIF = (prorrateo.totalCIF/prorrateo.aplicacionHMOD)/100
         prorrateo.save()
 
         return redirect('inicio')
