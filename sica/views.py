@@ -513,7 +513,7 @@ def estadoCapital(request):
 
 
 @login_required
-def balanceComprobacion(request):
+def balanceGeneral(request):
     subCuentas = SubCuenta.objects.all()
     ajustes = Ajuste.objects.all()
     transacciones = Transaccion.objects.all()
@@ -583,17 +583,44 @@ def balanceComprobacion(request):
     subCuentaCapital = SubCuenta.objects.get(id_subCuenta='3101.01')
     if suma_debe_capital < suma_haber_capital:
         subCuentaCapital.haber = capital
-        estado = "+"
     else:
         subCuentaCapital.debe = capital
-        estado = "-"
 
     subCuentaCapital.save()
 
-    return render(request, 'hojaTrabajo/estadoCapital.html', {'subCuentasCapital': subCuentasCapital,
-                                                              'suma_debe_capital': suma_debe_capital,
-                                                              'suma_haber_capital': suma_haber_capital,
-                                                              'capital': capital,
+    utilidad2 = abs(suma_debe - suma_haber)
+
+    subCuentaUtilidad2 = SubCuenta.objects.get(id_subCuenta='3202.01')
+    if suma_debe < suma_haber:
+        subCuentaUtilidad2.haber = utilidad2 * 0.4
+    else:
+        subCuentaUtilidad2.debe = utilidad2 * 0.4
+
+    subCuentaUtilidad2.save()
+
+    subCuentasGeneral = SubCuenta.objects.filter((Q(debe__gt=0.00) | Q(haber__gt=0.00))).exclude(
+        (Q(id_subCuenta__contains='4101') | Q(id_subCuenta__contains='4102') | Q(id_subCuenta__contains='4201') |
+         Q(id_subCuenta__contains='5101') | Q(id_subCuenta__contains='5201') | Q(id_subCuenta__contains='5202') |
+         Q(id_subCuenta__contains='3201') | Q(id_subCuenta__contains='4202')))
+
+    suma_debe_general = 0
+    suma_haber_general = 0
+
+    for subCuentaGeneral in subCuentasGeneral:
+        suma_debe_general += subCuentaGeneral.debe
+        suma_haber_general += subCuentaGeneral.haber
+
+    general = abs(suma_debe_general - suma_haber_general)
+
+    if suma_debe_general == suma_haber_general:
+        estado = "Todo correcto"
+    else:
+        estado = "Revisar"
+
+    return render(request, 'hojaTrabajo/balanceGeneral.html', {'subCuentasGeneral': subCuentasGeneral,
+                                                              'suma_debe_general': suma_debe_general,
+                                                              'suma_haber_general': suma_haber_general,
+                                                              'general': general,
                                                               'estado': estado})
 
 

@@ -1,0 +1,57 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Balance General {%endblock %}
+
+{% block js %}
+<script>
+    var general = document.getElementById("general")
+    var estado = document.getElementById('estado').textContent
+
+    if (estado.includes('correcto')) {
+        general.className += " table-success";
+    } else {
+        general.className += " table-danger";
+    }
+</script>
+{%endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"> Balance general </h4>
+            <table class="table table-hover " id="balanceAjustado">
+                <thead class="thead-light">
+                <tr>
+                    <th>N° de sub-cuenta</th>
+                    <th>Nombre de sub-cuenta</th>
+                    <th> Debe</th>
+                    <th> Haber</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for subCuentaGeneral in subCuentasGeneral %}
+                <tr>
+                    <td> {{subCuentaGeneral.id_subCuenta}}</td>
+                    <td> {{subCuentaGeneral.nombre_subCuenta}}</td>
+                    <td> ${{subCuentaGeneral.debe|floatformat:2}}</td>
+                    <td> ${{subCuentaGeneral.haber|floatformat:2}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+
+                <tr id="general" class="">
+                    <td id="estado"> Diferencia ({{estado}}): ${{general|floatformat:2}}</td>
+                    <td></td>
+                    <td id="debe_total_general"> ${{suma_debe_general|floatformat:2}}</td>
+                    <td id="haber_total_general"> ${{suma_haber_general|floatformat:2}}</td>
+                </tr>
+            </table>
+            <a name="" class="btn btn-primary" href="{% url 'hojaTrabajo' %}" role="button">Regresar</a>
+            <input name="" class="btn btn-success" type="button" value="Imprimir" onclick="javascript:window.print()"/>
+        </div>
+    </div>
+</div>
+
+{%endblock %}
