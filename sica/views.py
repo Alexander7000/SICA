@@ -396,28 +396,207 @@ def estadoResultado(request):
 
         subCuenta.save()
 
-    subCuentasAjustadas = SubCuenta.objects.filter((Q(debe__gt=0.00) | Q(haber__gt=0.00)) &
+    subCuentasResultado = SubCuenta.objects.filter((Q(debe__gt=0.00) | Q(haber__gt=0.00)) &
                                                    ((Q(id_subCuenta__contains='4101') | Q(id_subCuenta__contains='4102') | Q(id_subCuenta__contains='4201')) |
                                                    (Q(id_subCuenta__contains='5101') | Q(id_subCuenta__contains='5201') | Q(id_subCuenta__contains='5202'))))
-
 
     suma_debe = 0
     suma_haber = 0
 
-    for subCuentaAjustada in subCuentasAjustadas:
+    for subCuentaAjustada in subCuentasResultado:
         suma_debe += subCuentaAjustada.debe
         suma_haber += subCuentaAjustada.haber
 
     utilidad = abs(suma_debe - suma_haber)
 
+    subCuentaUtilidad = SubCuenta.objects.get(id_subCuenta="3202.01")
+
     if suma_debe < suma_haber:
+        subCuentaUtilidad.haber = utilidad
         estado = "Ganancia"
     else:
+        subCuentaUtilidad.debe = utilidad
         estado = "Perdida"
 
-    return render(request, 'hojaTrabajo/estadoResultado.html', {'subCuentasAjustadas': subCuentasAjustadas,
+    subCuentaUtilidad.save()
+
+    return render(request, 'hojaTrabajo/estadoResultado.html', {'subCuentasResultado': subCuentasResultado,
                                                                 'suma_debe': suma_debe,
                                                                 'suma_haber': suma_haber,
                                                                 'utilidad': utilidad,
                                                                 'estado': estado})
+
+
+@login_required
+def estadoCapital(request):
+    subCuentas = SubCuenta.objects.all()
+    ajustes = Ajuste.objects.all()
+    transacciones = Transaccion.objects.all()
+
+    for subCuenta in subCuentas:
+        debe = 0
+        haber = 0
+        subCuenta.debe = subCuenta.haber = 0
+
+        for ajuste in ajustes:
+            if ajuste.id_subCuenta.id_subCuenta == subCuenta.id_subCuenta:
+                if ajuste.id_tipoTransaccion.id_tipoTransaccion == 1:
+                    debe += ajuste.monto
+
+                if ajuste.id_tipoTransaccion.id_tipoTransaccion == 2:
+                    haber += ajuste.monto
+
+        for transaccion in transacciones:
+            if transaccion.id_subCuenta.id_subCuenta == subCuenta.id_subCuenta:
+
+                if transaccion.id_tipoTransaccion.id_tipoTransaccion == 1:
+                    debe += transaccion.monto
+
+                if transaccion.id_tipoTransaccion.id_tipoTransaccion == 2:
+                    haber += transaccion.monto
+
+        if debe > haber:
+            subCuenta.debe = debe - haber
+        else:
+            subCuenta.haber = haber - debe
+
+        subCuenta.save()
+
+    subCuentasResultado = SubCuenta.objects.filter((Q(debe__gt=0.00) | Q(haber__gt=0.00)) &
+                                                   ((Q(id_subCuenta__contains='4101') | Q(id_subCuenta__contains='4102') | Q(id_subCuenta__contains='4201')) |
+                                                   (Q(id_subCuenta__contains='5101') | Q(id_subCuenta__contains='5201') | Q(id_subCuenta__contains='5202'))))
+
+    suma_debe = 0
+    suma_haber = 0
+
+    for subCuentaResultado in subCuentasResultado:
+        suma_debe += subCuentaResultado.debe
+        suma_haber += subCuentaResultado.haber
+
+    utilidad = abs(suma_debe - suma_haber)
+
+    subCuentaUtilidad = SubCuenta.objects.get(id_subCuenta='3202.01')
+    if suma_debe < suma_haber:
+        subCuentaUtilidad.haber = utilidad * 0.6
+    else:
+        subCuentaUtilidad.debe = utilidad * 0.6
+
+    subCuentaUtilidad.save()
+
+    subCuentasCapital = SubCuenta.objects.filter((Q(debe__gt=0.00) | Q(haber__gt=0.00)) &
+                                                 (Q(id_subCuenta__contains='3101') | Q(id_subCuenta__contains='3201') | Q(id_subCuenta__contains='3202') | Q(id_subCuenta__contains='4202')))
+
+    suma_debe_capital = 0
+    suma_haber_capital = 0
+
+    for subCuentaCapital in subCuentasCapital:
+        suma_debe_capital += subCuentaCapital.debe
+        suma_haber_capital += subCuentaCapital.haber
+
+    capital = abs(suma_debe_capital - suma_haber_capital)
+
+    subCuentaCapital = SubCuenta.objects.get(id_subCuenta='3101.01')
+    if suma_debe_capital < suma_haber_capital:
+        subCuentaCapital.haber = capital
+        estado = "+"
+    else:
+        subCuentaCapital.debe = capital
+        estado = "-"
+
+    subCuentaCapital.save()
+
+    return render(request, 'hojaTrabajo/estadoCapital.html', {'subCuentasCapital': subCuentasCapital,
+                                                              'suma_debe_capital': suma_debe_capital,
+                                                              'suma_haber_capital': suma_haber_capital,
+                                                              'capital': capital,
+                                                              'estado': estado})
+
+
+@login_required
+def balanceComprobacion(request):
+    subCuentas = SubCuenta.objects.all()
+    ajustes = Ajuste.objects.all()
+    transacciones = Transaccion.objects.all()
+
+    for subCuenta in subCuentas:
+        debe = 0
+        haber = 0
+        subCuenta.debe = subCuenta.haber = 0
+
+        for ajuste in ajustes:
+            if ajuste.id_subCuenta.id_subCuenta == subCuenta.id_subCuenta:
+                if ajuste.id_tipoTransaccion.id_tipoTransaccion == 1:
+                    debe += ajuste.monto
+
+                if ajuste.id_tipoTransaccion.id_tipoTransaccion == 2:
+                    haber += ajuste.monto
+
+        for transaccion in transacciones:
+            if transaccion.id_subCuenta.id_subCuenta == subCuenta.id_subCuenta:
+
+                if transaccion.id_tipoTransaccion.id_tipoTransaccion == 1:
+                    debe += transaccion.monto
+
+                if transaccion.id_tipoTransaccion.id_tipoTransaccion == 2:
+                    haber += transaccion.monto
+
+        if debe > haber:
+            subCuenta.debe = debe - haber
+        else:
+            subCuenta.haber = haber - debe
+
+        subCuenta.save()
+
+    subCuentasResultado = SubCuenta.objects.filter((Q(debe__gt=0.00) | Q(haber__gt=0.00)) &
+                                                   ((Q(id_subCuenta__contains='4101') | Q(id_subCuenta__contains='4102') | Q(id_subCuenta__contains='4201')) |
+                                                   (Q(id_subCuenta__contains='5101') | Q(id_subCuenta__contains='5201') | Q(id_subCuenta__contains='5202'))))
+
+    suma_debe = 0
+    suma_haber = 0
+
+    for subCuentaResultado in subCuentasResultado:
+        suma_debe += subCuentaResultado.debe
+        suma_haber += subCuentaResultado.haber
+
+    utilidad = abs(suma_debe - suma_haber)
+
+    subCuentaUtilidad = SubCuenta.objects.get(id_subCuenta='3202.01')
+    if suma_debe < suma_haber:
+        subCuentaUtilidad.haber = utilidad * 0.6
+    else:
+        subCuentaUtilidad.debe = utilidad * 0.6
+
+    subCuentaUtilidad.save()
+
+    subCuentasCapital = SubCuenta.objects.filter((Q(debe__gt=0.00) | Q(haber__gt=0.00)) &
+                                                 (Q(id_subCuenta__contains='3101') | Q(id_subCuenta__contains='3201') | Q(id_subCuenta__contains='3202') | Q(id_subCuenta__contains='4202')))
+
+    suma_debe_capital = 0
+    suma_haber_capital = 0
+
+    for subCuentaCapital in subCuentasCapital:
+        suma_debe_capital += subCuentaCapital.debe
+        suma_haber_capital += subCuentaCapital.haber
+
+    capital = abs(suma_debe_capital - suma_haber_capital)
+
+    subCuentaCapital = SubCuenta.objects.get(id_subCuenta='3101.01')
+    if suma_debe_capital < suma_haber_capital:
+        subCuentaCapital.haber = capital
+        estado = "+"
+    else:
+        subCuentaCapital.debe = capital
+        estado = "-"
+
+    subCuentaCapital.save()
+
+    return render(request, 'hojaTrabajo/estadoCapital.html', {'subCuentasCapital': subCuentasCapital,
+                                                              'suma_debe_capital': suma_debe_capital,
+                                                              'suma_haber_capital': suma_haber_capital,
+                                                              'capital': capital,
+                                                              'estado': estado})
+
+
+
+
 

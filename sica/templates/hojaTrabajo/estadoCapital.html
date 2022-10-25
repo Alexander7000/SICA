@@ -1,11 +1,11 @@
 {% extends "bases/base.html" %}
 
-{% block titulo %} Estado resultado {%endblock %}
+{% block titulo %} Estado capital {%endblock %}
 
 {% block js %}
 <script>
-    var debe = document.getElementById("debe_total").textContent;
-    var haber = document.getElementById("haber_total").textContent
+    var debe = document.getElementById("debe_total_capital").textContent
+    var haber = document.getElementById("haber_total_capital").textContent
 
     debeNum = debe.split("$")
     haberNum = haber.split("$")
@@ -13,12 +13,12 @@
     debeFloat = parseFloat(debeNum[1])
     haberFloat = parseFloat(haberNum[1])
 
-    var utilidad = document.getElementById("utilidad")
+    var capital = document.getElementById("capital")
 
-    if (debe < haber) {
-        utilidad.className += " table-success";
+    if (debeFloat < haberFloat) {
+        capital.className += " table-success";
     } else {
-        utilidad.className += " table-danger";
+        capital.className += " table-danger";
     }
 </script>
 {%endblock %}
@@ -27,7 +27,7 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Estado de resultados </h4>
+            <h4 class="card-title">Estado de capital </h4>
             <table class="table table-hover " id="balanceAjustado">
                 <thead class="thead-light">
                 <tr>
@@ -39,21 +39,21 @@
                 </thead>
 
                 <tbody>
-                {% for subCuentaResultado in subCuentasResultado %}
+                {% for subCuentaCapital in subCuentasCapital %}
                 <tr>
-                    <td> {{subCuentaResultado.id_subCuenta}}</td>
-                    <td> {{subCuentaResultado.nombre_subCuenta}}</td>
-                    <td> ${{subCuentaResultado.debe|floatformat:2}}</td>
-                    <td> ${{subCuentaResultado.haber|floatformat:2}}</td>
+                    <td> {{subCuentaCapital.id_subCuenta}}</td>
+                    <td> {{subCuentaCapital.nombre_subCuenta}}</td>
+                    <td> ${{subCuentaCapital.debe|floatformat:2}}</td>
+                    <td> ${{subCuentaCapital.haber|floatformat:2}}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
 
-                <tr id="utilidad" class="">
-                    <td> Utilidad del ejercicio ({{estado}}): ${{utilidad|floatformat:2}}</td>
+                <tr id="capital" class="">
+                    <td> Capital ({{estado}}): ${{capital|floatformat:2}}</td>
                     <td></td>
-                    <td id="debe_total"> ${{suma_debe|floatformat:2}}</td>
-                    <td id="haber_total"> ${{suma_haber|floatformat:2}}</td>
+                    <td id="debe_total_capital"> ${{suma_debe_capital|floatformat:2}}</td>
+                    <td id="haber_total_capital"> ${{suma_haber_capital|floatformat:2}}</td>
                 </tr>
             </table>
             <a name="" class="btn btn-primary" href="{% url 'hojaTrabajo' %}" role="button">Regresar</a>

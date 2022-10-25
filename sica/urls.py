@@ -33,4 +33,5 @@ urlpatterns = [
 
     path('hojaTrabajo/balanceComprobacionAjustado', balanceComprobacionAjustado, name='balanceComprobacionAjustado'),
     path('hojaTrabajo/estadoResultado', estadoResultado, name='estadoResultado'),
+    path('hojaTrabajo/estadoCapital', estadoCapital, name='estadoCapital')
 ]
