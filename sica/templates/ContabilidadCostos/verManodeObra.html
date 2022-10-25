@@ -9,12 +9,7 @@
 {% block contenido %}
 <div class="container">
     <div class="card">
-         <div class="card-header">
-            <div class="d-flex justify-content-between align-items-cente">
-             <a name="" id="" class="btn btn-success" href="" role="button">Agregar nueva Orden</a>
 
-                </div>
-    </div>
         <div class="card-body">
             <h4 class="card-title">Mano de Obra</h4>
         <div class="col-sm">
@@ -50,7 +45,7 @@
             </table>
 
         </div>
-            <a class="btn btn-primary" href="" onclick="" role="button">Regresar</a>
+            <a class="btn btn-primary" href="{% url 'verOrdenes' %}" onclick="" role="button">Regresar</a>
         </div>
     </div>
 </div>

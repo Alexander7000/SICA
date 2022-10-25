@@ -264,7 +264,7 @@ def ManodeObraVista(request,id_OrdendeProduccion):
         manoObra.costo = manoObra.horas_manodeObra * manoObra.salario_manodeObra
         manoObra.save()
 
-        return redirect('inicio')
+    return redirect('Prorrateo')
 
     return render(request, 'ContabilidadCostos/ManodeObra.html', {'formulario': formulario})
 
