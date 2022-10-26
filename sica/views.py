@@ -302,3 +302,20 @@ def verProrrateo(request, id_OrdendeProduccion):
     prorrateos = Prorrateo.objects.filter(id_OrdendeProduccion=id_OrdendeProduccion)
     return render(request, 'ContabilidadCostos/verProrrateo.html',{'prorrateos' : prorrateos})
 
+@login_required
+def CostosIndirectosView(request,id_OrdendeProduccion,id_prorrateo):
+    formulario = costosIndirectosForm(request.POST or None)
+
+    orden = OrdendeProduccion.objects.get(id_OrdendeProduccion=id_OrdendeProduccion)
+    if formulario.is_valid():
+
+        costosIndirectos = formulario.save(commit=False)
+        costosIndirectos.id_OrdendeProduccion=orden
+        costosIndirectos.tasa=Prorrateo.tasapredeterminadaCIF
+        costosIndirectos.costoAplicado = costosIndirectos.pagoManodeObra * costosIndirectos.tasa
+
+        costosIndirectos.save()
+
+        return redirect('inicio')
+
+    return render(request, 'ContabilidadCostos/CostosIndirectos.html', {'formulario': formulario})

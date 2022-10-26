@@ -187,3 +187,27 @@ class Prorrateo(models.Model):
                +self.aplicacionHMOD.__str__()+" - $"\
                +self.tasapredeterminadaCIF.__str__()+\
                 self.id_OrdendeProduccion.__str__()
+class CostosIndirectos(models.Model):
+    id_costosIndirectos=models.AutoField(primary_key=True, null=False, blank=False)
+    id_OrdendeProduccion = models.ForeignKey(OrdendeProduccion,verbose_name="N° Orden", on_delete=models.PROTECT,null=False, blank=False)
+    id_Prorrateo = models.ForeignKey(Prorrateo, verbose_name="Prorrateo", on_delete=models.PROTECT,
+                                             null=False, blank=False)
+    fecha_costosIndirectos = models.DateField("Fecha", null=False, blank=False,help_text="Consejo: <em>Presione en el calendario</em>." )
+    pagoManodeObra = models.IntegerField("Pago Mano de Obra", null=False, blank=False,validators=[MinValueValidator(0)])
+    tasa = models.DecimalField("Tasa ", null=False, blank=False, validators=[MinValueValidator(0)],
+                                                max_digits=10, decimal_places=2)
+    costoAplicado = models.FloatField("Costo Aplicado", null=False, blank=False, validators=[MinValueValidator(0)])
+    class Meta:
+        db_table ='costosIndirectos'
+        ordering = ["id_costosIndirectos"]
+
+    def __str__(self):
+        return self.id_costosIndirectos.__str__()+\
+               self.id_OrdendeProduccion.__str__()+\
+               self.id_Prorrateo.__str__()+\
+               self.fecha_costosIndirectos.__format__('%d/%m/%Y').__str__()+\
+               self.pagoManodeObra.__str__()+" - $"+\
+               self.tasa.__str__()+\
+               self.costoAplicado.__str__()
+
+

@@ -71,3 +71,13 @@ class ProrrateoForm(forms.ModelForm):
             'amortizacion': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
             'otrosGastos': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
         }
+
+class costosIndirectosForm(forms.ModelForm):
+    class Meta:
+        model = CostosIndirectos
+        fields = '__all__'
+        exclude = ['id_costosIndirectos','id_Prorrateo','tasa','id_OrdendeProduccion','costoAplicado' ]
+        widgets = {
+            'pagoManodeObra': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'fecha_costosIndirectos': DateInput(attrs={'class': 'form-control'})
+        }

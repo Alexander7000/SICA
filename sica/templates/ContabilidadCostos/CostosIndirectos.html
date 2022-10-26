@@ -1,0 +1,32 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Registro de Costos Indirectos {%endblock %}
+{% load crispy_forms_tags %}
+{% block contenido %}
+<div class="row align-items-center justify-content-center">
+    <div class="col-md-5 ">
+        <div class="card">
+            <div class="card-header">
+                Registro de Costo Indirectos
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Ingrese los datos de Costos Indirectos</h4>
+
+                <form enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ formulario.media.js }}
+                        {{ formulario|crispy }}
+                    </div>
+
+                    <input name="" class="btn btn-success"  href="" type="submit" value="Registrar Costos Indirectos" >
+
+                    <a name="" class="btn btn-primary" href="{% url 'ContabilidadCostos' %}" role="button">Cancelar</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -32,4 +32,5 @@ urlpatterns = [
     path('ContabilidadCostos/Prorrateo.html/<int:id_OrdendeProduccion>', ProrrateoVista, name='Prorrateo'),
     path('ContabilidadCostos/verManodeObra.html/<int:id_OrdendeProduccion>', verManodeObra, name='verManodeObra'),
     path('ContabilidadCostos/verProrrateo.html/<int:id_OrdendeProduccion>', verProrrateo, name='verProrrateo'),
+    path('ContabilidadCostos/CostosIndirectos.html/<int:id_OrdendeProduccion>', CostosIndirectosView, name='CostosIndirectos'),
 ]
