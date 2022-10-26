@@ -1,0 +1,126 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Listado de Mano de Obra {%endblock %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="card">
+
+        <div class="card-body">
+            <h4 class="card-title">Factura</h4>
+            <div class="col-sm">
+                <p>Fecha: {{ordenes.fecha_Actual}}</p>
+                <p>N° de Orden: {{ordenes.id_OrdendeProduccion}}</p>
+                <p>Nombre Cliente: {{ordenes.nombre_cliente}}</p>
+                <p>Apellido Cliente: {{ordenes.apellido_cliente}}</p>
+
+                <table class="table table-sm table-hover ">
+                    <thead class="thead-light">
+                    <tr>
+
+
+                        <th> Detalles</th>
+                        <th>N° Pedido</th>
+                        <th>Cantidad</th>
+                        <th>Observaciones</th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    <tr>
+
+
+                        <td> {{ordenes.producto_Orden}}</td>
+                        <td> {{ordenes.numero_Pedido}}</td>
+                        <td> {{ordenes.cantidad_Producto}}</td>
+                        <td> {{ordenes.detalles_Pedido}}</td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+                <br>
+                <table class="table table-sm table-hover ">
+                    <thead class="thead-light">
+                    <tr>
+
+                        <th>Fecha de Mano de Obra</th>
+                        <th> Número de Horas</th>
+                        <th> Salario Por Hora</th>
+                        <th>Costo</th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+                    {% for ManodeObra in obras %}
+                    <tr>
+                        <td> {{ManodeObra.fecha_manodeObra}}</td>
+                        <td> {{ManodeObra.horas_manodeObra}}</td>
+                        <td> ${{ManodeObra.salario_manodeObra}}</td>
+                        <td> ${{ManodeObra.costo}}</td>
+
+                    </tr>
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+                <br>
+                <table class="table table-sm table-hover ">
+                    <thead class="thead-light">
+                    <tr>
+                        <th></th>
+                        <th>Fecha de Costos indirectos</th>
+
+                        <th> Pago de Mano de Obra</th>
+                        <th>Costo Aplicado</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+                    {% for costo in costos %}
+                    <tr>
+                        <td></td>
+                        <td> {{costo.fecha_costosIndirectos}}</td>
+                        <td> ${{costo.pagoManodeObra}}</td>
+                        <td> ${{costo.costoAplicado|floatformat:2}}</td>
+
+
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr class="table-info">
+
+                        <td></td>
+                        <td></td>
+                        <td>Total:</td>
+                        <td>${{total}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+                <p align="center">
+            <a class="btn btn-primary" href="{% url 'verOrdenes' %}" onclick="" role="button">Regresar</a>
+
+            <input name="" class="btn btn-success" type="button" value="Imprimir" onclick="javascript:window.print()"/>
+        </p>
+    </div>
+</div>
+{%endblock %}

@@ -689,6 +689,126 @@ def balanceGeneral(request):
                                                               'estado': estado})
 
 
+@login_required
+def ContabilidadCostos(request):
+
+    return render(request, 'ContabilidadCostos/index.html')
+
+@login_required
+def OrdenProduccion(request):
+    formulario = OrdendeProduccionForm(request.POST or None)
+
+    if formulario.is_valid():
+        produccion = formulario.save(commit=False)
+
+        produccion.save()
+
+        return redirect('ManodeObraVista',produccion.id_OrdendeProduccion)
+
+    return render(request, 'ContabilidadCostos/OrdenProduccion.html', {'formulario': formulario})
+
+
+@login_required
+def verOrdenes(request):
+    ordenes = OrdendeProduccion.objects.all()
+    return render(request, 'ContabilidadCostos/verOrdenes.html', {'ordenes': ordenes})
+
+@login_required
+def ManodeObraVista(request,id_OrdendeProduccion):
+    formulario = ManodeObraForm(request.POST or None)
+
+    orden = OrdendeProduccion.objects.get(id_OrdendeProduccion=id_OrdendeProduccion)
+    if formulario.is_valid():
+
+        manoObra = formulario.save(commit=False)
+        manoObra.id_OrdendeProduccion=orden
+        manoObra.costo = manoObra.horas_manodeObra * manoObra.salario_manodeObra
+        manoObra.save()
+
+        return redirect('Prorrateo',id_OrdendeProduccion)
+
+    return render(request, 'ContabilidadCostos/ManodeObra.html', {'formulario': formulario})
+
+@login_required
+def ProrrateoVista(request,id_OrdendeProduccion):
+    formulario = ProrrateoForm(request.POST or None)
+
+    orden = OrdendeProduccion.objects.get(id_OrdendeProduccion=id_OrdendeProduccion)
+    if formulario.is_valid():
+
+        prorrateo = formulario.save(commit=False)
+        prorrateo.id_OrdendeProduccion=orden
+        prorrateo.totalCIF = prorrateo.manodeObraIndirecta+\
+                          prorrateo.alquiler+\
+                          prorrateo.segurosEquipo+\
+                          prorrateo.depreciacion+\
+                          prorrateo.energia+\
+                          prorrateo.amortizacion+\
+                          prorrateo.otrosGastos
+        prorrateo.tasapredeterminadaCIF = (prorrateo.totalCIF/prorrateo.aplicacionHMOD)/100
+        prorrateo.save()
+
+        return redirect('CostosIndirectos',id_OrdendeProduccion, prorrateo.id_Prorrateo)
+
+    return render(request, 'ContabilidadCostos/Prorrateo.html', {'formulario': formulario})
+
+@login_required
+def verManodeObra(request, id_OrdendeProduccion):
+    obras = ManodeObra.objects.filter(id_OrdendeProduccion=id_OrdendeProduccion)
+
+    return render(request, 'ContabilidadCostos/verManodeObra.html',{'obras' : obras})
+
+@login_required
+def verProrrateo(request, id_OrdendeProduccion):
+    prorrateos = Prorrateo.objects.filter(id_OrdendeProduccion=id_OrdendeProduccion)
+    return render(request, 'ContabilidadCostos/verProrrateo.html',{'prorrateos' : prorrateos})
+
+@login_required
+def CostosIndirectosView(request,id_OrdendeProduccion,id_Prorrateo):
+    formulario = costosIndirectosForm(request.POST or None)
+
+    orden = OrdendeProduccion.objects.get(id_OrdendeProduccion=id_OrdendeProduccion)
+    prorrateo= Prorrateo.objects.get(id_Prorrateo=id_Prorrateo)
+
+
+    if formulario.is_valid():
+
+        costosIndirectos = formulario.save(commit=False)
+        costosIndirectos.id_Prorrateo = prorrateo
+        costosIndirectos.id_OrdendeProduccion=orden
+        costosIndirectos.costoAplicado = costosIndirectos.pagoManodeObra * prorrateo.tasapredeterminadaCIF
+
+        costosIndirectos.save()
+
+        return redirect('inicio')
+
+    return render(request, 'ContabilidadCostos/CostosIndirectos.html', {'formulario': formulario})
+
+@login_required
+def verCostosIndirectos(request, id_OrdendeProduccion):
+
+    ordenes= OrdendeProduccion.objects.filter(id_OrdendeProduccion=id_OrdendeProduccion)
+    prorrateos = Prorrateo.objects.filter(id_OrdendeProduccion=id_OrdendeProduccion)
+
+    for prorrateo in prorrateos:
+        costos = CostosIndirectos.objects.filter(id_Prorrateo=prorrateo.id_Prorrateo)
+
+
+    return render(request, 'ContabilidadCostos/verCostosIndirectos.html',{'costos' : costos})
+
+@login_required
+def verFactura(request, id_OrdendeProduccion):
+    ordenes = OrdendeProduccion.objects.get(id_OrdendeProduccion=id_OrdendeProduccion)
+    obras = ManodeObra.objects.filter(id_OrdendeProduccion=id_OrdendeProduccion)
+    costos = CostosIndirectos.objects.filter(id_OrdendeProduccion=id_OrdendeProduccion)
+
+    multi = ordenes.producto_Orden.precio_Producto * ordenes.cantidad_Producto
+    for obrasfor in obras:
+        suma = Decimal(obrasfor.costo) + Decimal(multi)
 
 
 
+        for costosfor in costos:
+            total = Decimal(costosfor.costoAplicado) + suma
+
+    return render(request, 'ContabilidadCostos/verFactura.html',{'obras' : obras,'ordenes' : ordenes,'costos' : costos,'total' : total})

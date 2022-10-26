@@ -42,6 +42,47 @@ class CalculoIVAForm(forms.ModelForm):
             'monto': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
         }
 
+class OrdendeProduccionForm(forms.ModelForm):
+    class Meta:
+        model = OrdendeProduccion
+        fields = '__all__'
+        exclude = ['id_OrdendeProduccion', ]
+        widgets = {
+            'fecha_Actual': DateInput(attrs={'class': 'form-control'}),
+        }
+
+class ManodeObraForm(forms.ModelForm):
+    class Meta:
+        model = ManodeObra
+        fields = '__all__'
+        exclude = ['id_OrdendeProduccion','costo']
+        widgets = {
+            'fecha_manodeObra': DateInput(attrs={'class': 'form-control'}),
+        }
+class ProrrateoForm(forms.ModelForm):
+    class Meta:
+        model = Prorrateo
+        fields = '__all__'
+        exclude = ['id_Prorrateo','totalCIF','tasapredeterminadaCIF','id_OrdendeProduccion' ]
+        widgets = {
+            'manodeObraIndirecta': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'alquiler': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'segurosEquipo': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'depreciacion': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'energia': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'amortizacion': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'otrosGastos': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+        }
+
+class costosIndirectosForm(forms.ModelForm):
+    class Meta:
+        model = CostosIndirectos
+        fields = '__all__'
+        exclude = ['id_costosIndirectos','id_Prorrateo','tasa','id_OrdendeProduccion','costoAplicado' ]
+        widgets = {
+            'pagoManodeObra': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'fecha_costosIndirectos': DateInput(attrs={'class': 'form-control'})
+        }
 
 class AjusteForm(forms.ModelForm):
     class Meta:

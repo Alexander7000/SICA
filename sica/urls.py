@@ -39,4 +39,14 @@ urlpatterns = [
     path('hojaTrabajo/estadoResultado', estadoResultado, name='estadoResultado'),
     path('hojaTrabajo/estadoCapital', estadoCapital, name='estadoCapital'),
     path('hojaTrabajo/balanceGeneral', balanceGeneral, name='balanceGeneral')
+    path('ContabilidadCostos', ContabilidadCostos, name='ContabilidadCostos'),
+    path('ContabilidadCostos/OrdenProduccion.html', OrdenProduccion, name='OrdenProduccion'),
+    path('ContabilidadCostos/verOrdenes.html', verOrdenes, name='verOrdenes'),
+    path('ContabilidadCostos/ManodeObra.html/<int:id_OrdendeProduccion>', ManodeObraVista, name='ManodeObraVista'),
+    path('ContabilidadCostos/Prorrateo.html/<int:id_OrdendeProduccion>', ProrrateoVista, name='Prorrateo'),
+    path('ContabilidadCostos/verManodeObra.html/<int:id_OrdendeProduccion>', verManodeObra, name='verManodeObra'),
+    path('ContabilidadCostos/verProrrateo.html/<int:id_OrdendeProduccion>', verProrrateo, name='verProrrateo'),
+    path('ContabilidadCostos/CostosIndirectos.html/<int:id_OrdendeProduccion>/<int:id_Prorrateo>', CostosIndirectosView, name='CostosIndirectos'),
+    path('ContabilidadCostos/verCostosIndirectos.html/<int:id_OrdendeProduccion>', verCostosIndirectos, name='verCostosIndirectos'),
+    path('ContabilidadCostos/verFactura.html/<int:id_OrdendeProduccion>', verFactura, name='verFactura'),
 ]

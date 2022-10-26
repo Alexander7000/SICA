@@ -1,0 +1,73 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Listado de Ordenes {%endblock %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="card">
+         <div class="card-header">
+            <div class="d-flex justify-content-between align-items-cente">
+             <a name="" id="" class="btn btn-success" href="{% url 'OrdenProduccion'  %}" role="button">Agregar nueva Orden</a>
+
+                </div>
+    </div>
+        <div class="card-body">
+            <h4 class="card-title">Ordenes</h4>
+        <div class="col-sm">
+            <table class="table table-sm table-hover " >
+                <thead class="thead-light">
+                    <tr>
+                        <th>N° de Orden </th>
+                        <th>Fecha</th>
+                        <th> Detalles </th>
+                        <th>Cantidad </th>
+                        <th>N° Pedido</th>
+                        <th>Observaciones</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                    {% for OrdendeProduccion in ordenes %}
+                        <tr>
+                            <td> {{OrdendeProduccion.id_OrdendeProduccion}}</td>
+                            <td> {{OrdendeProduccion.fecha_Actual}}</td>
+                            <td> {{OrdendeProduccion.producto_Orden}}</td>
+                            <td> {{OrdendeProduccion.cantidad_Producto}}</td>
+                            <td> {{OrdendeProduccion.numero_Pedido}}</td>
+                            <td> {{OrdendeProduccion.detalles_Pedido}}</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="{% url 'verManodeObra' OrdendeProduccion.id_OrdendeProduccion  %}" role="button">Mano de Obra</a>
+                            </td>
+                             <td>
+                                <a class="btn btn-info btn-sm" href="{% url 'verProrrateo' OrdendeProduccion.id_OrdendeProduccion  %}" role="button">Ver Prorrateo</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="{% url 'verCostosIndirectos' OrdendeProduccion.id_OrdendeProduccion %}" role="button">Costos Indirectos</a>
+                            </td>
+                             <td>
+                                <a class="btn btn-info btn-sm" href="{% url 'verFactura' OrdendeProduccion.id_OrdendeProduccion %}" role="button">Ver Factura</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+
+        </div>
+            <a class="btn btn-primary" href="{% url 'ContabilidadCostos' %}" onclick="" role="button">Regresar</a>
+        </div>
+    </div>
+</div>
+{%endblock %}
