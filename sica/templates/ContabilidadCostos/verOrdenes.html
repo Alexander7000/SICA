@@ -27,6 +27,10 @@
                         <th>Cantidad </th>
                         <th>N° Pedido</th>
                         <th>Observaciones</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
 
 
                     </tr>
@@ -43,10 +47,16 @@
                             <td> {{OrdendeProduccion.numero_Pedido}}</td>
                             <td> {{OrdendeProduccion.detalles_Pedido}}</td>
                             <td>
-                                <a class="btn btn-info" href="{% url 'verManodeObra' OrdendeProduccion.id_OrdendeProduccion  %}" role="button">Ver Mano de Obra</a>
+                                <a class="btn btn-info btn-sm" href="{% url 'verManodeObra' OrdendeProduccion.id_OrdendeProduccion  %}" role="button">Mano de Obra</a>
                             </td>
                              <td>
-                                <a class="btn btn-info" href="{% url 'verProrrateo' OrdendeProduccion.id_OrdendeProduccion  %}" role="button">Ver Prorrateo</a>
+                                <a class="btn btn-info btn-sm" href="{% url 'verProrrateo' OrdendeProduccion.id_OrdendeProduccion  %}" role="button">Ver Prorrateo</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="{% url 'verCostosIndirectos' OrdendeProduccion.id_OrdendeProduccion %}" role="button">Costos Indirectos</a>
+                            </td>
+                             <td>
+                                <a class="btn btn-info btn-sm" href="{% url 'verFactura' OrdendeProduccion.id_OrdendeProduccion %}" role="button">Ver Factura</a>
                             </td>
                         </tr>
                     {% endfor %}

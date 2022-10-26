@@ -1,0 +1,48 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Listado de Costos indirectos {%endblock %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="card">
+
+        <div class="card-body">
+            <h4 class="card-title">Costos Indirectos</h4>
+        <div class="col-sm">
+            <table class="table table-sm table-hover " >
+                <thead class="thead-light">
+                    <tr>
+                        <th> N° Orden </th>
+                        <th>Fecha</th>
+                        <th> Mano de Obra </th>
+                        <th>Costo Aplicado</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                    {% for costo in costos %}
+                        <tr>
+                            <td> {{costo.id_OrdendeProduccion.id_OrdendeProduccion}}</td>
+                            <td> {{costo.fecha_costosIndirectos}}</td>
+                            <td> ${{costo.pagoManodeObra}}</td>
+                            <td> ${{costo.costoAplicado|floatformat:2}}</td>
+
+
+                        </tr>
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+
+        </div>
+            <a class="btn btn-primary" href="{% url 'verOrdenes' %}" onclick="" role="button">Regresar</a>
+        </div>
+    </div>
+</div>
+{%endblock %}
