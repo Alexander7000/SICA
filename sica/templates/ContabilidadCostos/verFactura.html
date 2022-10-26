@@ -92,7 +92,7 @@
                     <tr>
                         <td></td>
                         <td> {{costo.fecha_costosIndirectos}}</td>
-                        <td> ${{costo.pagoManodeObra}}</td>
+                        <td> ${{costo.pagoManodeObra|floatformat:2}}</td>
                         <td> ${{costo.costoAplicado|floatformat:2}}</td>
 
 
@@ -108,7 +108,7 @@
                         <td></td>
                         <td></td>
                         <td>Total:</td>
-                        <td>${{total}}</td>
+                        <td>${{total|floatformat:2}}</td>
                     </tr>
                     </tbody>
                 </table>

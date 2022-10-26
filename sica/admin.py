@@ -15,3 +15,5 @@ admin.site.register(TipoTransaccion)
 admin.site.register(Partida)
 
 admin.site.register(Transaccion)
+
+admin.site.register(Producto)

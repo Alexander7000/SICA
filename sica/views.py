@@ -780,7 +780,7 @@ def CostosIndirectosView(request,id_OrdendeProduccion,id_Prorrateo):
 
         costosIndirectos.save()
 
-        return redirect('inicio')
+        return redirect('ContabilidadCostos')
 
     return render(request, 'ContabilidadCostos/CostosIndirectos.html', {'formulario': formulario})
 
