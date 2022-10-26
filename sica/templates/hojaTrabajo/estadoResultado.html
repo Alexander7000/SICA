@@ -3,24 +3,18 @@
 {% block titulo %} Estado resultado {%endblock %}
 
 {% block js %}
+
 <script>
-    var debe = document.getElementById("debe_total").textContent;
-    var haber = document.getElementById("haber_total").textContent
-
-    debeNum = debe.split("$")
-    haberNum = haber.split("$")
-
-    debeFloat = parseFloat(debeNum[1])
-    haberFloat = parseFloat(haberNum[1])
-
     var utilidad = document.getElementById("utilidad")
+    var estado = document.getElementById('estado').textContent
 
-    if (debe < haber) {
+    if (estado.includes('Ganancia')) {
         utilidad.className += " table-success";
     } else {
         utilidad.className += " table-danger";
     }
 </script>
+
 {%endblock %}
 
 {% block contenido %}
@@ -50,7 +44,7 @@
                 </tbody>
 
                 <tr id="utilidad" class="">
-                    <td> Utilidad del ejercicio ({{estado}}): ${{utilidad|floatformat:2}}</td>
+                    <td id="estado"> Utilidad del ejercicio ({{estado}}): ${{utilidad|floatformat:2}}</td>
                     <td></td>
                     <td id="debe_total"> ${{suma_debe|floatformat:2}}</td>
                     <td id="haber_total"> ${{suma_haber|floatformat:2}}</td>

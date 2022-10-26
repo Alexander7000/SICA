@@ -3,24 +3,18 @@
 {% block titulo %} Estado capital {%endblock %}
 
 {% block js %}
+
 <script>
-    var debe = document.getElementById("debe_total_capital").textContent
-    var haber = document.getElementById("haber_total_capital").textContent
-
-    debeNum = debe.split("$")
-    haberNum = haber.split("$")
-
-    debeFloat = parseFloat(debeNum[1])
-    haberFloat = parseFloat(haberNum[1])
-
     var capital = document.getElementById("capital")
+    var estado = document.getElementById('estado').textContent
 
-    if (debeFloat < haberFloat) {
+    if (estado.includes('+')) {
         capital.className += " table-success";
     } else {
         capital.className += " table-danger";
     }
 </script>
+
 {%endblock %}
 
 {% block contenido %}
@@ -50,7 +44,7 @@
                 </tbody>
 
                 <tr id="capital" class="">
-                    <td> Capital ({{estado}}): ${{capital|floatformat:2}}</td>
+                    <td id="estado"> Capital ({{estado}}): ${{capital|floatformat:2}}</td>
                     <td></td>
                     <td id="debe_total_capital"> ${{suma_debe_capital|floatformat:2}}</td>
                     <td id="haber_total_capital"> ${{suma_haber_capital|floatformat:2}}</td>

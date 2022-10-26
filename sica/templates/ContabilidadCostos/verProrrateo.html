@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block contenido %}
-<div class="container">
+<div class="container-fluid">
     <div class="card">
 
         <div class="card-body">
@@ -39,16 +39,16 @@
                     {% for Prorrateo in prorrateos %}
                         <tr>
                             <td> {{Prorrateo.id_OrdendeProduccion.id_OrdendeProduccion}}</td>
-                            <td> ${{Prorrateo.manodeObraIndirecta}}</td>
-                            <td> ${{Prorrateo.alquiler}}</td>
-                            <td> ${{Prorrateo.segurosEquipo}}</td>
-                            <td> ${{Prorrateo.depreciacion}}</td>
-                            <td> ${{Prorrateo.energia}}</td>
-                            <td> ${{Prorrateo.amortizacion}}</td>
-                            <td> ${{Prorrateo.otrosGastos}}</td>
-                            <td> ${{Prorrateo.totalCIF}}</td>
-                            <td> {{Prorrateo.aplicacionHMOD}}</td>
-                            <td> {{Prorrateo.tasapredeterminadaCIF}}</td>
+                            <td> ${{Prorrateo.manodeObraIndirecta|floatformat:2}}</td>
+                            <td> ${{Prorrateo.alquiler|floatformat:2}}</td>
+                            <td> ${{Prorrateo.segurosEquipo|floatformat:2}}</td>
+                            <td> ${{Prorrateo.depreciacion|floatformat:2}}</td>
+                            <td> ${{Prorrateo.energia|floatformat:2}}</td>
+                            <td> ${{Prorrateo.amortizacion|floatformat:2}}</td>
+                            <td> ${{Prorrateo.otrosGastos|floatformat:2}}</td>
+                            <td> ${{Prorrateo.totalCIF|floatformat:2}}</td>
+                            <td> {{Prorrateo.aplicacionHMOD|floatformat:2}}</td>
+                            <td> {{Prorrateo.tasapredeterminadaCIF|floatformat:2}}</td>
 
 
                         </tr>

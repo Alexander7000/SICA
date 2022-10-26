@@ -476,6 +476,8 @@ def estadoResultado(request):
 
     subCuentaUtilidad = SubCuenta.objects.get(id_subCuenta="3202.01")
 
+    subCuentaUtilidad.haber = subCuentaUtilidad.debe = 0
+
     if suma_debe < suma_haber:
         subCuentaUtilidad.haber = utilidad
         estado = "Ganancia"
@@ -541,6 +543,9 @@ def estadoCapital(request):
     utilidad = abs(suma_debe - suma_haber)
 
     subCuentaUtilidad = SubCuenta.objects.get(id_subCuenta='3202.01')
+
+    subCuentaUtilidad.haber = subCuentaUtilidad.debe = 0
+
     if suma_debe < suma_haber:
         subCuentaUtilidad.haber = utilidad * 0.6
     else:
@@ -561,6 +566,9 @@ def estadoCapital(request):
     capital = abs(suma_debe_capital - suma_haber_capital)
 
     subCuentaCapital = SubCuenta.objects.get(id_subCuenta='3101.01')
+
+    subCuentaCapital.haber = subCuentaCapital.debe = 0
+
     if suma_debe_capital < suma_haber_capital:
         subCuentaCapital.haber = capital
         estado = "+"
@@ -626,6 +634,9 @@ def balanceGeneral(request):
     utilidad = abs(suma_debe - suma_haber)
 
     subCuentaUtilidad = SubCuenta.objects.get(id_subCuenta='3202.01')
+
+    subCuentaUtilidad.haber = subCuentaUtilidad.debe = 0
+
     if suma_debe < suma_haber:
         subCuentaUtilidad.haber = utilidad * 0.6
     else:
@@ -646,6 +657,9 @@ def balanceGeneral(request):
     capital = abs(suma_debe_capital - suma_haber_capital)
 
     subCuentaCapital = SubCuenta.objects.get(id_subCuenta='3101.01')
+
+    subCuentaCapital.haber = subCuentaCapital.debe = 0
+
     if suma_debe_capital < suma_haber_capital:
         subCuentaCapital.haber = capital
     else:
@@ -656,6 +670,9 @@ def balanceGeneral(request):
     utilidad2 = abs(suma_debe - suma_haber)
 
     subCuentaUtilidad2 = SubCuenta.objects.get(id_subCuenta='3202.01')
+
+    subCuentaUtilidad2.haber = subCuentaUtilidad2.debe = 0
+
     if suma_debe < suma_haber:
         subCuentaUtilidad2.haber = utilidad2 * 0.4
     else:

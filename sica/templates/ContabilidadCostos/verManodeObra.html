@@ -38,8 +38,8 @@
                             <td> {{ManodeObra.id_OrdendeProduccion.id_OrdendeProduccion}}</td>
                             <td> {{ManodeObra.fecha_manodeObra}}</td>
                             <td> {{ManodeObra.horas_manodeObra}}</td>
-                            <td> ${{ManodeObra.salario_manodeObra}}</td>
-                            <td> ${{ManodeObra.costo}}</td>
+                            <td> ${{ManodeObra.salario_manodeObra|floatformat:2}}</td>
+                            <td> ${{ManodeObra.costo|floatformat:2}}</td>
 
                         </tr>
                     {% endfor %}

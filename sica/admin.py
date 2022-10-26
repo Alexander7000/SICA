@@ -17,3 +17,13 @@ admin.site.register(Partida)
 admin.site.register(Transaccion)
 
 admin.site.register(Producto)
+
+admin.site.register(OrdendeProduccion)
+
+admin.site.register(ManodeObra)
+
+admin.site.register(Prorrateo)
+
+admin.site.register(CostosIndirectos)
+
+admin.site.register(Ajuste)
