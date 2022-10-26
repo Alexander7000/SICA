@@ -264,12 +264,12 @@ def ManodeObraVista(request,id_OrdendeProduccion):
         manoObra.costo = manoObra.horas_manodeObra * manoObra.salario_manodeObra
         manoObra.save()
 
-    return redirect('Prorrateo',id_OrdendeProduccion)
+        return redirect('Prorrateo',id_OrdendeProduccion)
 
     return render(request, 'ContabilidadCostos/ManodeObra.html', {'formulario': formulario})
 
 @login_required
-def Prorrateo(request,id_OrdendeProduccion):
+def ProrrateoVista(request,id_OrdendeProduccion):
     formulario = ProrrateoForm(request.POST or None)
 
     orden = OrdendeProduccion.objects.get(id_OrdendeProduccion=id_OrdendeProduccion)
@@ -292,6 +292,13 @@ def Prorrateo(request,id_OrdendeProduccion):
     return render(request, 'ContabilidadCostos/Prorrateo.html', {'formulario': formulario})
 
 @login_required
-def verManodeObra(request):
-    obras = ManodeObra.objects.all()
+def verManodeObra(request, id_OrdendeProduccion):
+    obras = ManodeObra.objects.filter(id_OrdendeProduccion=id_OrdendeProduccion)
+
     return render(request, 'ContabilidadCostos/verManodeObra.html',{'obras' : obras})
+
+@login_required
+def verProrrateo(request, id_OrdendeProduccion):
+    prorrateos = Prorrateo.objects.filter(id_OrdendeProduccion=id_OrdendeProduccion)
+    return render(request, 'ContabilidadCostos/verProrrateo.html',{'prorrateos' : prorrateos})
+

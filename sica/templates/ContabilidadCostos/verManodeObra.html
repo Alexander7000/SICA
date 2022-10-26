@@ -29,9 +29,9 @@
                 </thead>
 
                 <tbody>
-                    {% for ManodeObra in manodeObra %}
+                    {% for ManodeObra in obras %}
                         <tr>
-                            <td> {{ManodeObra.id_OrdendeProduccion}}</td>
+                            <td> {{ManodeObra.id_OrdendeProduccion.id_OrdendeProduccion}}</td>
                             <td> {{ManodeObra.fecha_manodeObra}}</td>
                             <td> {{ManodeObra.horas_manodeObra}}</td>
                             <td> ${{ManodeObra.salario_manodeObra}}</td>

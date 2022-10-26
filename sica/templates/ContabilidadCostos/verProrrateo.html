@@ -1,0 +1,66 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Listado de Mano de Obra {%endblock %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="card">
+
+        <div class="card-body">
+            <h4 class="card-title">Prorrateo</h4>
+        <div class="col-sm">
+            <table class="table table-sm table-hover " >
+                <thead class="thead-light">
+                    <tr>
+                        <th>N° de Orden </th>
+                        <th>Mano de Obra Indirecta</th>
+                        <th> Alquiler </th>
+                        <th> Seguros </th>
+                        <th>Depreciacion</th>
+                        <th>Energia</th>
+                        <th>Amortizacion</th>
+                        <th>Otros gastos</th>
+                        <th>Total CIF </th>
+                        <th>Base HMOD</th>
+                        <th>Tasa Predeterminada CIF</th>
+
+
+
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                    {% for Prorrateo in prorrateos %}
+                        <tr>
+                            <td> {{Prorrateo.id_OrdendeProduccion.id_OrdendeProduccion}}</td>
+                            <td> ${{Prorrateo.manodeObraIndirecta}}</td>
+                            <td> ${{Prorrateo.alquiler}}</td>
+                            <td> ${{Prorrateo.segurosEquipo}}</td>
+                            <td> ${{Prorrateo.depreciacion}}</td>
+                            <td> ${{Prorrateo.energia}}</td>
+                            <td> ${{Prorrateo.amortizacion}}</td>
+                            <td> ${{Prorrateo.otrosGastos}}</td>
+                            <td> ${{Prorrateo.totalCIF}}</td>
+                            <td> {{Prorrateo.aplicacionHMOD}}</td>
+                            <td> {{Prorrateo.tasapredeterminadaCIF}}</td>
+
+
+                        </tr>
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+
+        </div>
+            <a class="btn btn-primary" href="{% url 'verOrdenes' %}" onclick="" role="button">Regresar</a>
+        </div>
+    </div>
+</div>
+{%endblock %}

@@ -43,7 +43,10 @@
                             <td> {{OrdendeProduccion.numero_Pedido}}</td>
                             <td> {{OrdendeProduccion.detalles_Pedido}}</td>
                             <td>
-                                <a class="btn btn-info" href="{% url 'verManodeObra'  %}" role="button">Ver Mano de Obra</a>
+                                <a class="btn btn-info" href="{% url 'verManodeObra' OrdendeProduccion.id_OrdendeProduccion  %}" role="button">Ver Mano de Obra</a>
+                            </td>
+                             <td>
+                                <a class="btn btn-info" href="{% url 'verProrrateo' OrdendeProduccion.id_OrdendeProduccion  %}" role="button">Ver Prorrateo</a>
                             </td>
                         </tr>
                     {% endfor %}
